@@ -4,21 +4,14 @@ var line1 = {
     title: {
         text: 'title',
         textStyle:{
-        	color:'#fff'
+            color:'#fff'
         }
     },
     textStyle:{
-        	color:'#fff'
+            color:'#fff'
         },
     tooltip: {
         trigger: 'axis'
-    },
-    legend: {
-    	right:'0',
-        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎'],
-        textStyle:{
-        	color:'#fff'
-        }
     },
     grid: {
         left: '3%',
@@ -36,36 +29,103 @@ var line1 = {
     },
     series: [
         {
-            name:'邮件营销',
+            name:'视频广告',
             type:'line',
             stack: '总量',
-            data:[120, 132, 101, 134, 90, 230, 210],
+            data:[150, 232, 201, 154, 190, 330, 410],
+            itemStyle:{
+                normal:{
+                    lineStyle:{
+                        color:'#2f8fbf'
+                    }
+                }
+            }, 
             areaStyle:{
-            	normal:{
-            		color:'#A05043'
-            	}
+                normal:{
+                    color:'#5E9DBF'
+                }
             }
+        }
+    ]
+};
+var line2 = {
+    title: {
+        text: 'title',
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    textStyle:{
+            color:'#fff'
         },
-        {
-            name:'联盟广告',
-            type:'line',
-            stack: '总量',
-            data:[220, 182, 191, 234, 290, 330, 310],
-            areaStyle:{
-            	normal:{
-            		color:'#2A3A46'
-            	}
-            }
-        },
+    tooltip: {
+        trigger: 'axis'
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一','周二','周三','周四','周五','周六','周日']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
         {
             name:'视频广告',
             type:'line',
             stack: '总量',
             data:[150, 232, 201, 154, 190, 330, 410],
             areaStyle:{
-            	normal:{
-            		color:'#5E9DBF'
-            	}
+                normal:{
+                    color:'#5E9DBF'
+                }
+            }
+        }
+    ]
+};
+var line3 = {
+    title: {
+        text: 'title',
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    textStyle:{
+            color:'#fff'
+        },
+    tooltip: {
+        trigger: 'axis'
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一','周二','周三','周四','周五','周六','周日']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
+        {
+            name:'视频广告',
+            type:'line',
+            stack: '总量',
+            data:[150, 232, 201, 154, 190, 330, 410],
+            areaStyle:{
+                normal:{
+                    color:'#ce4'
+                }
             }
         }
     ]
@@ -111,7 +171,9 @@ var rader = {
              tooltip: {
                 trigger: 'item'
             },
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            itemStyle: {normal: {areaStyle: {type: 'default',color:'#5E9DBF'},lineStyle:{
+                color:'#2f8fbf'
+            }}},
             data: [
                 {
                     value: [60,73,85,40,90],
@@ -163,7 +225,9 @@ var rader2 = {
              tooltip: {
                 trigger: 'item'
             },
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+              itemStyle: {normal: {areaStyle: {type: 'default',color:'#5E9DBF'},lineStyle:{
+                color:'#2f8fbf'
+            }}},
             data: [
                 {
                     value: [60,73,85,40,90],
@@ -172,84 +236,6 @@ var rader2 = {
             ]
         }
         
-    ]
-};
-var base = +new Date(2018, 9, 3);
-var oneDay = 24 * 3600 * 1000;
-var date = [];
-
-var data = [Math.random() * 300];
-
-for (var i = 1; i < 20000; i++) {
-    var now = new Date(base += oneDay);
-    date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-    data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
-}
-
-var routeComplete = {
-    tooltip: {
-        trigger: 'axis',
-        position: function (pt) {
-            return [pt[0], '10%'];
-        }
-    },
-    title: {
-        left: 'center',
-        text: '大数据量面积图',
-        textStyle:{
-        	color:'#fff'
-        }
-    },
-    textStyle:{
-        	color:'#fff'
-        },
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: date
-    },
-    yAxis: {
-        type: 'value',
-        boundaryGap: [0, '100%']
-    },
-    dataZoom: [{
-        type: 'inside',
-        start: 0,
-        end: 10
-    }, {
-        start: 0,
-        end: 10,
-        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
-        handleSize: '80%',
-        handleStyle: {
-            color: '#fff',
-            shadowBlur: 3,
-            shadowColor: 'rgba(0, 0, 0, 0.6)',
-            shadowOffsetX: 2,
-            shadowOffsetY: 2
-        }
-    }],
-    series: [
-        {
-            name:'模拟数据',
-            type:'bar',
-            smooth:true,
-            symbol: 'none',
-            sampling: 'average',
-            itemStyle: {
-                color: 'rgb(255, 70, 131)'
-            },
-            areaStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                    offset: 0,
-                    color: 'rgb(255, 158, 68)'
-                }, {
-                    offset: 1,
-                    color: 'rgb(255, 70, 131)'
-                }])
-            },
-            data: data
-        }
     ]
 };
 
@@ -276,7 +262,7 @@ var circle1 = {
                 {value:335, name:'10%'},
                 {value:310, name:''}
             ],
-            color:["#ff0","#ff53ff"]
+            color:["#5E9DBF","#ff53ff"]
         }
     ]
 };
@@ -340,21 +326,62 @@ var rightLine1 =  {
     title: {
         text: 'title',
         textStyle:{
-        	color:'#fff'
+            color:'#fff'
         }
     },
     textStyle:{
-        	color:'#fff'
+            color:'#fff'
         },
     tooltip: {
         trigger: 'axis'
     },
-    legend: {
-    	right:'0',
-        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎'],
-        textStyle:{
-        	color:'#fff'
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一','周二','周三','周四','周五','周六','周日']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
+        {
+            name:'邮件营销',
+            type:'line',
+            stack: '总量',
+            data:[120, 132, 101, 134, 90, 230, 210],
+            itemStyle:{
+                normal:{
+                    lineStyle:{
+                        color:'#2f8fbf'
+                    }
+                }
+            }, 
+            areaStyle:{
+                normal:{
+                    color:'#5E9DBF'
+                }
+            }
         }
+    ]
+};
+var rightLine2 =  {
+    title: {
+        text: 'title',
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    textStyle:{
+            color:'#fff'
+        },
+    tooltip: {
+        trigger: 'axis'
     },
     grid: {
         left: '3%',
@@ -377,53 +404,25 @@ var rightLine1 =  {
             stack: '总量',
             data:[120, 132, 101, 134, 90, 230, 210],
             areaStyle:{
-            	normal:{
-            		color:'#53ff53'
-            	}
-            }
-        },
-        {
-            name:'联盟广告',
-            type:'line',
-            stack: '总量',
-            data:[220, 182, 191, 234, 290, 330, 310],
-            areaStyle:{
-            	normal:{
-            		color:'#cef'
-            	}
-            }
-        },
-        {
-            name:'视频广告',
-            type:'line',
-            stack: '总量',
-            data:[150, 232, 201, 154, 190, 330, 410],
-            areaStyle:{
-            	normal:{
-            		color:'#5E9DBF'
-            	}
+                normal:{
+                    color:'#5E9DBF'
+                }
             }
         }
     ]
 };
-var rightBar =  {
-	title:{
-		text:'title', 
-		textStyle:{
-			color:'#fff'
-		}
-	},
-	textStyle:{
-			color:'#fff'
-		},
-    tooltip : {
-        trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+var rightLine3 =  {
+    title: {
+        text: 'title',
+        textStyle:{
+            color:'#fff'
         }
     },
-    legend: {
-        data:['支出', '收入']
+    textStyle:{
+            color:'#fff'
+        },
+    tooltip: {
+        trigger: 'axis'
     },
     grid: {
         left: '3%',
@@ -431,41 +430,79 @@ var rightBar =  {
         bottom: '3%',
         containLabel: true
     },
-    xAxis : [
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一','周二','周三','周四','周五','周六','周日']
+    },
+    yAxis: {
+        type: 'value'
+    },
+    series: [
         {
-            type : 'value'
-        }
-    ],
-    yAxis : [
-        {
-            type : 'category',
-            axisTick : {show: false},
-            data : ['周一','周二','周三','周四','周五','周六','周日']
-        }
-    ],
-    series : [
-        {
-            name:'收入',
-            type:'bar',
+            name:'邮件营销',
+            type:'line',
             stack: '总量',
-            label: {
-                normal: {
-                    show: true
+            data:[120, 132, 101, 134, 90, 230, 210],
+            areaStyle:{
+                normal:{
+                    color:'#5E9DBF'
                 }
-            },
-            data:[320, 302, 341, 374, 390, 450, 420]
+            }
+        }
+    ]
+};
+var rightBar = {
+    title: {
+        text: '世界人口总量',
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    textStyle:{
+            color:'#fff'
+        },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+    legend: {
+        data: ['2011年', '2012年','2013'],
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    yAxis: {
+        type: 'category',
+        data: ['巴西','印尼','美国','印度','中国','世界人口(万)']
+    },
+    series: [
+        {
+            name: '2011年',
+            type: 'bar',
+            data: [18203, 23489, 29034, 104970, 131744, 630230]
         },
         {
-            name:'支出',
-            type:'bar',
-            stack: '总量',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'left'
-                }
-            },
-            data:[-120, -132, -101, -134, -190, -230, -210]
+            name: '2012年',
+            type: 'bar',
+            data: [19325, 23438, 31000, 121594, 134141, 681807]
+        },
+        {
+            name: '2013',
+            type: 'bar',
+            data: [19325, 23438, 31000, 121594, 134141, 681807]
         }
     ]
 };
@@ -473,45 +510,124 @@ var rightBar =  {
 var allData ={
 	echart:function(id,options){
 		echarts.init(document.getElementById(id)).setOption(options);
+        echarts.init(document.getElementById(id)).resize();
 	},
-	init:function(){
-		this.echart('line1',line1);
-		this.echart('rader',rader);
-		this.echart('rader2',rader2);
-		this.echart('route-complete',routeComplete);
-		this.echart('circle1',circle1);
-		this.echart('circle2',circle2);
-		this.echart('circle3',circle3);
-		this.echart('rightLine1',rightLine1);
-		this.echart('rightBar',rightBar);
-	}
+    carousel:function(){
+        var cardWrapWidth = $('#middle-middle').width();
+        $(".personCard").width($(".personCard li").length*100+"%");
+        $(".personCard li").width((100/$(".personCard li").length)+"%");
+        var flag=0;
+        $(".arrow-right").click(function(){
+            flag++;
+            if(flag>=$(".personCard li").length){
+                flag=0;
+            }
+            $(".personCard").css({
+                "transform":'translateX(-'+cardWrapWidth*flag+'px)',
+                "transition":'all 1s'
+            })
+        });
+        $(".arrow-left").click(function(){
+            flag--;
+            if(flag<0){
+                flag=$(".personCard li").length-1;
+            }
+            $(".personCard").css({
+                "transform":'translateX(-'+cardWrapWidth*flag+'px)',
+                "transition":'all 1s'
+            })
+        });
+    },
+    carousel2:function(){
+        var barWrapWidth = $('.barWrap').width();
+        $(".barWrap ul").width($(".barWrap li").length*100+"%");
+        $(".barWrap li").width((100/15/$(".barWrap li").length)+"%");
+        $(".barWrap li").each(function(index,item){
+            $(item).find('div').height(Math.random()*200+"px")
+        })
+        var flag=0,step=0;
+        $(".arrowbar-right").click(function(){
+            flag+=100;
+            step++;
+            if(step>=parseInt($(".barWrap").width()/($('.barWrap li').width()+30))-5){
+                flag=0;
+                step=0;
+            }
+            $(".barWrap ul").css({
+                "transform":'translateX(-'+flag+'px)',
+                "transition":'all 1s'
+            })
+        });
+        $(".arrowbar-left").click(function(){
+            flag-=100;
+            step--;
+            if(step<0){
+                flag=0;
+                step =0
+            }
+            $(".barWrap ul").css({
+                "transform":'translateX(-'+flag+'px)',
+                "transition":'all 1s'
+            })
+        });
+    },
+    init:function(){
+        this.echart('line1',line1);
+        this.echart('line2',line2);
+        this.echart('line3',line3);
+        this.echart('rader',rader);
+        this.echart('rader2',rader2);
+        // this.echart('route-complete',routeComplete);
+        this.echart('circle1',circle1);
+        this.echart('circle2',circle2);
+        this.echart('circle3',circle3);
+        this.echart('rightLine1',rightLine1);
+        this.echart('rightLine2',rightLine2);
+        this.echart('rightLine3',rightLine3);
+        this.echart('rightBar',rightBar);
+    },
+    tab:function(id){
+        var that = this;
+        $(id).find(".tabNav li").each(function(index,item){
+            $(item).click(function(){
+                $(id).find(".tabContent li").hide().eq(index).show();
+                that.init();
+            })
+        });
+    },
+    wheel:function(id){
+        var flag =0;
+        var trDom = document.getElementById(id).children[0].children;
+        document.getElementById(id).children[0].style.transition="transform 1s";
+        document.getElementById(id).onmousewheel=function(e){
+            if(e.wheelDeltaY<0){
+                flag+=10;
+                if(flag<(trDom.length-1)*trDom[0].offsetHeight){
+                    document.getElementById(id).children[0].style.transform="translateY(-"+flag+"px)";  
+                }else{
+                    flag=(trDom.length-1)*trDom[0].offsetHeight
+                }
+            }
+            
+            if(e.wheelDeltaY>0){
+                flag-=10;
+                if(flag>0 && flag <(trDom.length-1)*trDom[0].offsetHeight){
+                    document.getElementById(id).children[0].style.transform="translateY(-"+flag+"px)";
+                }else{
+                    flag= 0;
+                    document.getElementById(id).children[0].style.transform="translateY(0)";
+                }
+            }
+        }
+
+    },
 }
 window.onload=function(){
-	allData.init();
-		var cardWrapWidth = $('#middle-middle').width();
-		$(".personCard").width($(".personCard li").length*100+"%");
-		$(".personCard li").width((100/$(".personCard li").length)+"%");
-		var flag=0;
-		$(".arrow-right").click(function(){
-			flag++;
-			if(flag>=$(".personCard li").length){
-				flag=0;
-			}
-			$(".personCard").css({
-				"transform":'translateX(-'+cardWrapWidth*flag+'px)',
-				"transition":'all 1s'
-			})
-		});
-		$(".arrow-left").click(function(){
-			flag--;
-			if(flag<0){
-				flag=$(".personCard li").length-1;
-			}
-			$(".personCard").css({
-				"transform":'translateX(-'+cardWrapWidth*flag+'px)',
-				"transition":'all 1s'
-			})
-		});
-
-	
+    allData.tab('#tab1');
+    allData.tab('#tab2');
+    allData.init();
+    allData.carousel(); 
+    allData.carousel2(); 
+    // allData.wheel('rightTable');
+    allData.wheel('leftTable');
 }

@@ -2,6 +2,24 @@ body{
 	background: #030d3e;
 	color: #fff;
 }
+#left-top,
+#left-middle,
+#left-bottom,
+#middle-top,
+#middle-middle,
+#middle-bottom,
+#right-top,
+#right-middle,
+#right-bottom{
+	border: 1px solid #fff;
+}
+#left-middle,
+#middle-middle,
+#right-middle{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding-left:0;
+}
 .all-wrapper{
 	display: flex;
 	justify-content: flex-start;
@@ -9,7 +27,6 @@ body{
 }
 #container{
 	display: flex;
-	justify-content: center;
 	justify-content: space-between;
 	align-items: flex-start;
 }
@@ -41,17 +58,20 @@ body{
 	align-items: center;
 }
 #left{
-	flex:1;
+	flex-basis: 20%;
+	display: flex;
+	flex-direction: column;
+
 }
 #middle{
-	flex:2;
+	flex-basis: 50%;
+	margin:0 2%;
 }
 #right{
-	flex:1;
+	flex-basis: 20%;
 }
 #left-bottom table{
 	width:100%;
-	border:1px solid #ccc;
 	border-spacing: 0;
 }
 #middle-top{
@@ -67,6 +87,7 @@ body{
 	justify-content: flex-start;
 	align-items: center;
 	flex-wrap: wrap;
+	padding-left: 0;
 }
 .personCard>li{
 	text-align: center;
@@ -96,4 +117,76 @@ body{
 .right-bottom table{
 	width:100%;
 	border: 1px solid #ccc;
+}
+
+
+.tabNav{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: nowrap;
+	list-style: none;
+	padding-left:0;
+	color: '#7092d1';
+}
+.tabContent{
+	overflow: hidden;
+	display: flex;
+	flex-shrink: 0;
+	list-style: none;
+	padding-left:0;
+}
+.tabContent li{
+	width: 100%;
+	display: none;
+}
+.tabContent li:first-child{
+	display: block;
+}
+
+#right-bottom,
+#left-bottom{
+	height: 150px;
+	overflow: hidden;
+}
+.barWrap{
+	position: relative;
+	overflow: hidden;
+}
+.arrowBar{
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate3d(-50%,-50%,0);
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.arrowBar a{
+	color: #fff;
+	text-decoration:none;
+	font-size: 25px;
+}
+.barWrap ul{
+	padding-left: 0;
+	list-style: none;
+	display: flex;
+	justify-content: flex-start;
+}
+.barWrap li{
+	width: 50px;
+	background-color: #0c303e;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	height: 250px;
+	margin: 0 15px;
+	text-align: center;
+}
+.barWrap li div{
+	height: 20px;
+	background-color: #2f8fbf;
+}
+.barWrap li span:nth-child(3){
+	background-color: #2f8fbf;
 }

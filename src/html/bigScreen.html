@@ -16,28 +16,39 @@
 		<div id="container">
 			<div id="left">
 				<div id="left-top">
-					<div id="line1" style="width: 100%;height: 200px;"></div>
+					<div class="tabNavWrap" id="tab1">
+						<ul class="tabNav">
+							<li>1abc</li>
+							<li>2abc</li>
+							<li>3abc</li>
+						</ul>
+						<ul class="tabContent">
+							<li><div id="line1" style="width: 100%;height: 200px;"></div></li>
+							<li><div id="line2" style="width: 100%;height: 200px;"></div></li>
+							<li><div id="line3" style="width: 100%;height: 200px;"></div></li>
+						</ul>
+					</div>
 				</div>
 				<div id="left-middle">
 					<div id="rader" style="width: 100%;height: 300px;"></div>
 					<div id="rader2" style="width: 100%;height: 300px;"></div>
 				</div>
-				<div id="left-bottom" style="width: 100%;height: 300px;">
-					<table cellpadding="10">
+				<div id="left-bottom">
+					<table cellpadding="10" id="leftTable">
 						<tr>
-								<td>i1</td>
-								<td>i2</td>
-								<td>i3</td>
+								<td>2019-01-01 00：00：00</td>
+								<td>事情1</td>
+								<td>事情2</td>
 							</tr>
 							<tr>
-								<td>i1</td>
-								<td>i2</td>
-								<td>i3</td>
+								<td>2019-01-01 00：00：00</td>
+								<td>事情1</td>
+								<td>事情2</td>
 							</tr>
 							<tr>
-								<td>i1</td>
-								<td>i2</td>
-								<td>i3</td>
+								<td>2019-01-01 00：00：00</td>
+								<td>事情1</td>
+								<td>事情2</td>
 							</tr>	
 					</table>
 				</div>
@@ -92,45 +103,113 @@
 					</div>
 				</div>
 				<div id="middle-bottom">
-					<div id="route-complete" style="width: 100%;height: 300px"></div>
+					<!-- <div id="route-complete" style="width: 100%;height: 300px"></div> -->
+					<div class="barWrap">
+						<ul>
+							<li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li><li>
+								<span>100</span>
+								<div></div>
+								<span>项目1</span>
+							</li>
+						</ul>
+						<div class="arrowBar">
+							<a href="javascript:;" class="arrowbar-left">&lt;</a>
+							<a href="javascript:;" class="arrowbar-right">&gt;</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div id="right">
-				<div class="right-top">
-					<div id="rightLine1" style="width:100%;height: 300px"></div>
+				<div id="right-top">
+					<div class="tabNavWrap" id="tab2">
+						<ul class="tabNav">
+							<li>1abc</li>
+							<li>2abc</li>
+							<li>3abc</li>
+						</ul>
+						<ul class="tabContent">
+							<li><div id="rightLine1" style="width: 100%;height: 200px;"></div></li>
+							<li><div id="rightLine2" style="width: 100%;height: 200px;"></div></li>
+							<li><div id="rightLine3" style="width: 100%;height: 200px;"></div></li>
+						</ul>
+					</div>
 				</div>
-				<div class="right-middle">
-					<div id="rightBar" style="width: 100%;height: 300px"></div>
+				<div id="right-middle">
+					<div id="rightBar" style="width: 100%;height: 500px"></div>
 				</div>
-				<div class="right-bottom">
-					<table cellpadding="10">
+				<!-- <div id="right-bottom">
+					<table cellpadding="10" id="rightTable">
 						<tr>
-							<td>1i</td>
-							<td>2i</td>
-							<td>3i</td>
+							<td>2019-01-01 00：00：00</td>
+							<td>事情1</td>
+							<td>事情2</td>
 						</tr>
 						<tr>
-							<td>1i</td>
-							<td>2i</td>
-							<td>3i</td>
+							<td>2019-01-01 00：00：00</td>
+							<td>事情1</td>
+							<td>事情2</td>
 						</tr>
 						<tr>
-							<td>1i</td>
-							<td>2i</td>
-							<td>3i</td>
+							<td>2019-01-01 00：00：00</td>
+							<td>事情1</td>
+							<td>事情2</td>
 						</tr>
 					</table>
-				</div>
+				</div> -->
 			</div>
 
 		</div>
 	</div>
 </body>
 <!-- <style>
-body{
-		background: #030d3e;
-		color: #fff;
-	}
+	body{
+			background: #030d3e;
+			color: #fff;
+		}
 	.all-wrapper{
 		display: flex;
 		justify-content: flex-start;
