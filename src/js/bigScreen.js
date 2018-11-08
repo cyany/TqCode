@@ -1,3 +1,4 @@
+import "./../css/bigScreen.css";
 console.log(123);
 var line1 = {
     title: {

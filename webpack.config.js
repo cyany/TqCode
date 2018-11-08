@@ -1,5 +1,9 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports={
+	entry: {
+	     bigScreen: './src/js/bigScreen.js'
+	   }
 	module:{
 		rules:[
 			{
@@ -17,13 +21,21 @@ module.exports={
 						options:{minimize:true}
 					}
 				]
+			},
+			{
+				test:/\.css$/,
+				use:[MiniCssExtractPlugin.loader,"css-loader"]
 			}
 		]
 	},
 	plugins:[
 		new HtmlWebPackPlugin({
-			template:"./html/bigScreen.html",
+			template:"./src/html/bigScreen.html",
 			filename:'./index.html'
+		}),
+		new MiniCssExtractPlugin({
+			filename:'[name].css',
+			chunkFilename:"[id].css"
 		})
 	]
 }
