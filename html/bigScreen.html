@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="./html/bigScreen.js"></script>
+</head>
+<body>
+	<div class="all-wrapper">
+		<div id="header">
+			<h2>工厂车间实时状况</h2>
+			<p>2017-09-02 06:08:42</p>
+		</div>
+		<div id="container">
+			<div id="left">
+				<div id="left-top">
+					<div id="line1" style="width: 100%;height: 200px;"></div>
+				</div>
+				<div id="left-middle">
+					<div id="rader" style="width: 100%;height: 300px;"></div>
+					<div id="rader2" style="width: 100%;height: 300px;"></div>
+				</div>
+				<div id="left-bottom" style="width: 100%;height: 300px;">
+					<table cellpadding="10">
+						<tr>
+								<td>i1</td>
+								<td>i2</td>
+								<td>i3</td>
+							</tr>
+							<tr>
+								<td>i1</td>
+								<td>i2</td>
+								<td>i3</td>
+							</tr>
+							<tr>
+								<td>i1</td>
+								<td>i2</td>
+								<td>i3</td>
+							</tr>	
+					</table>
+				</div>
+			</div>
+			<div id="middle">
+				<div id="middle-top">
+					<div class="todayProblem">
+						<h2>保障数</h2>
+						<p>1000</p>
+					</div>
+					<div class="todaySolve">
+						<h2>解决数</h2>
+						<p>1000</p>
+					</div>
+					<div class="route">
+						<div class="circle1">
+							<div id="circle1" style="width:100%;height: 150px
+
+							"></div>
+						</div>
+						<div class="circle2">
+							<div id="circle2" style="width:100%;height: 150px
+
+							"></div>
+						</div>
+						<div class="circle3">
+							<div id="circle3" style="width:100%;height: 150px
+
+							"></div>
+						</div>
+					</div>
+				</div>
+				<div id="middle-middle">
+					<ul class="personCard">
+						<li><img src="https://via.placeholder.com/150">
+							<p>Lorem ipsum dolor sit amet.</p>
+							<p>Lorem ipsum dolor sit amet.</p>
+							<p>Lorem ipsum dolor sit amet.</p>
+						</li><li><img src="https://via.placeholder.com/150">
+							<p>Lorem ipsum dolor sit amet.</p>
+							<p>Lorem ipsum dolor sit amet.</p>
+							<p>Lorem ipsum dolor sit amet.</p>
+						</li><li><img src="https://via.placeholder.com/150">
+							<p>Lorem ipsum dolor sit amet.</p>
+							<p>Lorem ipsum dolor sit amet.</p>
+							<p>Lorem ipsum dolor sit amet.</p>
+						</li>
+					</ul>
+					<div class="personCardArrow">
+						<a href="javascript:;" class="arrow-left">&lt;</a>
+						<a href="javascript:;" class="arrow-right">&gt;</a>
+					</div>
+				</div>
+				<div id="middle-bottom">
+					<div id="route-complete" style="width: 100%;height: 300px"></div>
+				</div>
+			</div>
+			<div id="right">
+				<div class="right-top">
+					<div id="rightLine1" style="width:100%;height: 300px"></div>
+				</div>
+				<div class="right-middle">
+					<div id="rightBar" style="width: 100%;height: 300px"></div>
+				</div>
+				<div class="right-bottom">
+					<table cellpadding="10">
+						<tr>
+							<td>1i</td>
+							<td>2i</td>
+							<td>3i</td>
+						</tr>
+						<tr>
+							<td>1i</td>
+							<td>2i</td>
+							<td>3i</td>
+						</tr>
+						<tr>
+							<td>1i</td>
+							<td>2i</td>
+							<td>3i</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+<style type="text/css">
+	body{
+		background: #030d3e;
+		color: #fff;
+	}
+	.all-wrapper{
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+	}
+	#container{
+		display: flex;
+		justify-content: center;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+	#header{
+		text-align: center;
+	}
+	.todayProblem,
+	.todaySolve{
+		flex:1;
+	}
+	#left-middle{
+		display: flex;
+	}
+	#left-middle>div{
+		flex: 1;
+	}
+	.route{
+		flex: 1.5;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.route>div{
+		flex: 1;
+	}
+	#middle-top{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	#left{
+		flex:1;
+	}
+	#middle{
+		flex:2;
+	}
+	#right{
+		flex:1;
+	}
+	#left-bottom table{
+		width:100%;
+		border:1px solid #ccc;
+		border-spacing: 0;
+	}
+	#middle-top{
+		text-align: center;
+	}
+	#middle-middle{
+		width: 100%;
+		position: relative;
+		overflow:hidden;
+	}
+	.personCard{
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	.personCard>li{
+		text-align: center;
+		list-style: none;
+	}
+	.personCardArrow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate3d(-50%,-50%,0);
+		width:100%;
+		color: #fff;
+		padding: 30px;
+		box-sizing: border-box;
+	}
+	.personCardArrow a{
+		color: #fff;
+		font-size: 20px;
+		text-decoration: none;
+	}
+	.arrow-left{
+		float: left;
+	}
+	.arrow-right{
+		float: right;
+	}
+	.right-bottom table{
+		width:100%;
+		border: 1px solid #ccc;
+	}
+</style>
