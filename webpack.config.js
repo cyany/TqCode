@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports={
 	entry: {
 	     bigScreen: './src/js/bigScreen.js'
-	   }
+	   },
 	module:{
 		rules:[
 			{
