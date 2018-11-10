@@ -1,0 +1,10 @@
+$width:100px;
+@mixin flex{
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+body{
+	width: $width;
+	@include flex;
+}

@@ -1,4 +1,7 @@
-import "./../css/bigScreen.css";
+// import "./../css/bigScreen.css";
+import "./../css/bigScreen.scss";
+import utils from "./utils.js";
+
 console.log(123);
 var line1 = {
     title: {
@@ -81,6 +84,13 @@ var line2 = {
             type:'line',
             stack: '总量',
             data:[150, 232, 201, 154, 190, 330, 410],
+            itemStyle:{
+                normal:{
+                    lineStyle:{
+                        color:'#2f8fbf'
+                    }
+                }
+            }, 
             areaStyle:{
                 normal:{
                     color:'#5E9DBF'
@@ -122,9 +132,16 @@ var line3 = {
             type:'line',
             stack: '总量',
             data:[150, 232, 201, 154, 190, 330, 410],
+            itemStyle:{
+                normal:{
+                    lineStyle:{
+                        color:'#2f8fbf'
+                    }
+                }
+            }, 
             areaStyle:{
                 normal:{
-                    color:'#ce4'
+                    color:'#5E9DBF'
                 }
             }
         }
@@ -351,10 +368,10 @@ var rightLine1 =  {
     },
     series: [
         {
-            name:'邮件营销',
+            name:'视频广告',
             type:'line',
             stack: '总量',
-            data:[120, 132, 101, 134, 90, 230, 210],
+            data:[150, 232, 201, 154, 190, 330, 410],
             itemStyle:{
                 normal:{
                     lineStyle:{
@@ -399,10 +416,17 @@ var rightLine2 =  {
     },
     series: [
         {
-            name:'邮件营销',
+            name:'视频广告',
             type:'line',
             stack: '总量',
-            data:[120, 132, 101, 134, 90, 230, 210],
+            data:[150, 232, 201, 154, 190, 330, 410],
+            itemStyle:{
+                normal:{
+                    lineStyle:{
+                        color:'#2f8fbf'
+                    }
+                }
+            }, 
             areaStyle:{
                 normal:{
                     color:'#5E9DBF'
@@ -411,7 +435,7 @@ var rightLine2 =  {
         }
     ]
 };
-var rightLine3 =  {
+var rightLine3 = {
     title: {
         text: 'title',
         textStyle:{
@@ -440,10 +464,17 @@ var rightLine3 =  {
     },
     series: [
         {
-            name:'邮件营销',
+            name:'视频广告',
             type:'line',
             stack: '总量',
-            data:[120, 132, 101, 134, 90, 230, 210],
+            data:[150, 232, 201, 154, 190, 330, 410],
+            itemStyle:{
+                normal:{
+                    lineStyle:{
+                        color:'#2f8fbf'
+                    }
+                }
+            }, 
             areaStyle:{
                 normal:{
                     color:'#5E9DBF'
@@ -488,6 +519,11 @@ var rightBar = {
         type: 'category',
         data: ['巴西','印尼','美国','印度','中国','世界人口(万)']
     },
+    itemStyle:{
+        normal:{
+            
+        }
+    },
     series: [
         {
             name: '2011年',
@@ -507,6 +543,7 @@ var rightBar = {
     ]
 };
 
+
 var allData ={
 	echart:function(id,options){
 		echarts.init(document.getElementById(id)).setOption(options);
@@ -514,6 +551,7 @@ var allData ={
 	},
     carousel:function(){
         var cardWrapWidth = $('#middle-middle').width();
+        // console.log(cardWrapWidth)
         $(".personCard").width($(".personCard li").length*100+"%");
         $(".personCard li").width((100/$(".personCard li").length)+"%");
         var flag=0;
@@ -540,36 +578,55 @@ var allData ={
     },
     carousel2:function(){
         var barWrapWidth = $('.barWrap').width();
-        $(".barWrap ul").width($(".barWrap li").length*100+"%");
-        $(".barWrap li").width((100/15/$(".barWrap li").length)+"%");
-        $(".barWrap li").each(function(index,item){
-            $(item).find('div').height(Math.random()*200+"px")
-        })
-        var flag=0,step=0;
-        $(".arrowbar-right").click(function(){
-            flag+=100;
-            step++;
-            if(step>=parseInt($(".barWrap").width()/($('.barWrap li').width()+30))-5){
-                flag=0;
-                step=0;
-            }
-            $(".barWrap ul").css({
-                "transform":'translateX(-'+flag+'px)',
-                "transition":'all 1s'
-            })
-        });
-        $(".arrowbar-left").click(function(){
-            flag-=100;
-            step--;
-            if(step<0){
-                flag=0;
-                step =0
-            }
-            $(".barWrap ul").css({
-                "transform":'translateX(-'+flag+'px)',
-                "transition":'all 1s'
-            })
-        });
+        var middleBarData="";
+        $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getRoutingsStatistic?date=2018-11-02",
+            function(data){
+                middleBarData = JSON.parse(data);
+            }).then(function(data){
+                console.log(middleBarData)
+                $.each(middleBarData,function(index,item){
+                    if(item["first_sum"]=="0"){
+                        $(".barWrap ul").append("<li><span>0%</span> <div style='height:0px'></div> <span title="+item["name"]+"(未分配)>"+item["name"]+"(未分配)"+"</span></li>")  
+
+                    }else{
+                        var detailNum =(Number(item["first_count"])*100/Number(item["first_sum"])).toFixed(2);
+                        console.log(detailNum)
+                        $(".barWrap ul").append("<li><span>"+detailNum+"%</span> <div style='height:"+(detailNum/100)*250+"px'></div> <span title="+item["name"]+">"+item.name+"</span></li>")  
+                    }
+                });
+
+                $(".barWrap ul").width($(".barWrap li").length*100+"%");
+                $(".barWrap li").width((100/15/$(".barWrap li").length)+"%");
+                var flag=0,step=0;
+                $(".arrowbar-right").click(function(){
+                    flag+=100;
+                    step++;
+                    if(step>=parseInt($(".barWrap").width()/($('.barWrap li').width()+30))-5){
+                        flag=0;
+                        step=0;
+                    }
+                    $(".barWrap ul").css({
+                        "transform":'translateX(-'+flag+'px)',
+                        "transition":'all 1s'
+                    })
+                });
+                $(".arrowbar-left").click(function(){
+                    flag-=100;
+                    step--;
+                    if(step<0){
+                        flag=0;
+                        step =0
+                    }
+                    $(".barWrap ul").css({
+                        "transform":'translateX(-'+flag+'px)',
+                        "transition":'all 1s'
+                    })
+                });
+
+            });
+        
+       
+        
     },
     init:function(){
         this.echart('line1',line1);
@@ -626,8 +683,31 @@ window.onload=function(){
     allData.tab('#tab1');
     allData.tab('#tab2');
     allData.init();
-    allData.carousel(); 
     allData.carousel2(); 
     // allData.wheel('rightTable');
     allData.wheel('leftTable');
+    allData.carousel(); 
+    //     jQuery.ajax({
+    //     url:'http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getRoutingsStatistic',
+    //     type:'get',
+    //     async:false,
+    //     data:{
+    //         date:"2018-11-02"
+    //     },
+    //     dataType:'jsonp',
+    //     jsonp:'callback',
+    //     success:function(data){
+    //         console.log(data);
+    //         console.log(132);
+    //     },
+    //     error:function(e){
+    //         console.log(e)
+    //     },
+    //     complete:function(){
+    //         console.log(123456789)
+    //     }
+    // })
+
+
+    
 }
