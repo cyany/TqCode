@@ -2,16 +2,14 @@ body{
 	background: #030d3e;
 	color: #fff;
 }
-#left-top,
-#left-middle,
-#left-bottom,
-#middle-top,
-#middle-middle,
-#middle-bottom,
-#right-top,
-#right-middle,
-#right-bottom{
-	border: 1px solid #fff;
+.tabNavWrap,
+.left-middle-wrap,
+.lefttablebox,
+#rightBar,
+.middle-middle-wrap,
+.middle-bottom-wrap,
+.middle-top-wrap{
+	border: 1px solid #5b6288;
 }
 #left-middle,
 #middle-middle,
@@ -30,6 +28,8 @@ body{
 	justify-content: space-between;
 	align-items: flex-start;
 	width: 100%;
+/*	max-height: 900px;
+overflow: hidden;*/
 }
 #header{
 	text-align: center;
@@ -38,11 +38,24 @@ body{
 .todaySolve{
 	flex:1;
 }
-#left-middle{
+
+.left-middle-wrap{
 	display: flex;
+	flex-direction: column;
 }
-#left-middle>div{
-	flex: 1;
+.left-middle-wrap h3{
+	font-size: 16px;
+	font-weight: normal;
+	color: #ccc;
+	display: flex;
+	justify-content: space-around;
+}
+.left-middle-wrap h3 span{
+	padding: 10px;
+	color: rgba(166, 209, 255, 0.38);
+}
+.raderbox{
+	display: flex;
 }
 .route{
 	flex: 1.5;
@@ -53,9 +66,9 @@ body{
 .route>div{
 	flex: 1;
 }
-#middle-top{
+.middle-top-wrap{
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 }
 #left{
@@ -66,7 +79,7 @@ body{
 }
 #middle{
 	flex:2;
-	margin:0 2%;
+	margin:0 1%;
 }
 #right{
 	flex:1;
@@ -74,11 +87,15 @@ body{
 #left-bottom table{
 	width:100%;
 	border-spacing: 0;
+	overflow: hidden;
+	color: rgba(166, 209, 255, 0.38);
 }
 #middle-top{
 	text-align: center;
 }
 #middle-middle{
+	display: flex;
+	flex-direction: column;
 	width: 100%;
 	position: relative;
 	overflow:hidden;
@@ -141,15 +158,31 @@ body{
 	border: 1px solid #ccc;
 }
 
-
+.all-wrapper h2{
+	text-align: left;
+	color:rgba(166, 209, 255, 0.38);;
+	margin-bottom: 2px;
+	font-weight: normal;
+	font-size: 22px;
+	margin-top: 0;
+}
+.all-wrapper h2 small{
+	font-weight: normal;
+	font-size: 18px;
+}
+#header h2{
+	text-align: center;
+}
 .tabNav{
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	flex-wrap: nowrap;
 	list-style: none;
 	padding-left:0;
-	color: '#7092d1';
+	color: #7092d1;
+	font-size: 20px;
+	font-weight: bold;
 }
 .tabContent{
 	overflow: hidden;
@@ -166,11 +199,11 @@ body{
 	display: block;
 }
 
-#right-bottom,
+/*#right-bottom,
 #left-bottom{
 	height: 150px;
 	overflow: hidden;
-}
+}*/
 .barWrap{
 	position: relative;
 	overflow: hidden;
@@ -196,7 +229,7 @@ body{
 	justify-content: flex-start;
 }
 .barWrap li{
-	width: 50px;
+	/*width: 50px;*/
 	background-color: #0c303e;
 	display: flex;
 	flex-direction: column;
@@ -212,10 +245,45 @@ body{
 .barWrap li span:nth-child(3){
 	background-color: #030d3e;
 	text-overflow: ellipsis;
-	    white-space: nowrap;
-	    overflow: hidden;
-	    width: 65px;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 65px;
 }
 .personCard>li p{
 	margin:0;
+}
+.chooseTime{
+	text-align: left;
+	margin-left: 15px;
+	margin-top: 15px;
+}
+.timeDist{
+	text-align: right;
+	margin-right: 15px;
+	margin-top: 15px;
+}
+.todayProblem h2,
+.todaySolve h2{
+	color: #5f8ab7;
+	text-align: center;
+}
+.annother li,
+.annother li div{
+	background-color: transparent;
+}
+.timeDist button,
+.chooseTime button{
+	background: transparent;
+	outline: none;
+	border: none;
+	color: rgba(166, 209, 255, 0.38);
+}
+.chooseTime{
+	text-align: center;
+}
+#routeTime{
+	background: transparent;
+	outline: none;
+	border: none;
+	color: rgba(166, 209, 255, 0.38);
 }

@@ -25,7 +25,7 @@ var line1 = {
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['周一','周二','周三','周四','周五','周六','周日']
+        data: []
     },
     yAxis: {
         type: 'value'
@@ -35,7 +35,7 @@ var line1 = {
             name:'里程',
             type:'line',
             stack: '总量',
-            data:[150,250,180,465,423,156,120,420],
+            data:[],
             itemStyle:{
                 normal:{
                     lineStyle:{
@@ -45,7 +45,7 @@ var line1 = {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#215e9f'
+                    color:'#5E9DBF'
                 }
             }
         }
@@ -93,7 +93,7 @@ var line2 = {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#215e9f'
+                    color:'#5E9DBF'
                 }
             }
         }
@@ -141,7 +141,7 @@ var line3 = {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#215e9f'
+                    color:'#5E9DBF'
                 }
             }
         }
@@ -149,39 +149,39 @@ var line3 = {
 };
 
     var Today = new Date().toLocaleDateString().replace(/\//g,"-");
-    // $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=week",
-    //     function(data){
-    //         console.log(data);
-    //         var newArrX = [],newArrY=[];
-    //         $.each(data.data,function(index,item){
-    //             newArrX.push(item.statistic_date);
-    //             newArrY.push((item.distance/1000).toFixed(2));
-    //         });
-    //         console.log(newArrX,newArrY,123456)
-    //         line1.xAxis.data= newArrX;
-    //         line1.series[0].data= newArrY;
-    //     })
+    $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=week",
+        function(data){
+            console.log(data);
+            var newArrX = [],newArrY=[];
+            $.each(data.data,function(index,item){
+                newArrX.push(item.statistic_date);
+                newArrY.push((item.distance/1000).toFixed(2));
+            });
+            console.log(newArrX,newArrY,123456)
+            line1.xAxis.data= newArrX;
+            line1.series[0].data= newArrY;
+        })
 
-    // $("#carWeek").click(function(){
-    //      $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
-    //         function(data){
-    //           var newArrX = [],newArrY=[];
-    //             $.each(data.data,function(index,item){
-    //                 newArrX.push(item.statistic_date);
-    //                 newArrY.push((item.distance/1000).toFixed(2));
-    //             })
-    //             console.log(newArrX,newArrY,123456)
-    //             line1.xAxis.data= newArrX;
-    //             line1.series[0].data= newArrY;
-    //         })
-    // })
-    // $("#carMonth").click(function(){
-    //      $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
-    //         function(data){
-    //             console.log(data);
-    //             line1 = data.data;
-    //         })
-    // });
+    $("#carWeek").click(function(){
+         $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
+            function(data){
+              var newArrX = [],newArrY=[];
+                $.each(data.data,function(index,item){
+                    newArrX.push(item.statistic_date);
+                    newArrY.push((item.distance/1000).toFixed(2));
+                })
+                console.log(newArrX,newArrY,123456)
+                line1.xAxis.data= newArrX;
+                line1.series[0].data= newArrY;
+            })
+    })
+    $("#carMonth").click(function(){
+         $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
+            function(data){
+                console.log(data);
+                line1 = data.data;
+            })
+    });
 
 var rader = {
     title: {
@@ -191,15 +191,13 @@ var rader = {
         }
     },
     tooltip: {
-        trigger: 'axis' ,
-        color:'#ff0',
+        trigger: 'axis'
     },
     textStyle:{
         	color:'#fff'
         },
-    color:['#215e9f'],
     legend: {
-        y: 'bottom',
+        x: 'center',
         data:['某软件'],
         textStyle:{
         	color:'#fff'
@@ -215,20 +213,7 @@ var rader = {
                 {text: 'E', max: 100}
             ],
             center: ['45%','50%'],
-            radius: 60,
-            splitArea : {
-                            show : true,   
-                            areaStyle : {
-                                color: ["#030d3e"]  // 图表背景网格的颜色
-                            }
-                        },
-                        splitLine : {
-                            show : true,
-                            lineStyle : {
-                                width : 1,
-                                color : '#286fbb' // 图表背景网格线的颜色
-                            }
-                        }
+            radius: 60
         },
         
     ],
@@ -238,9 +223,8 @@ var rader = {
              tooltip: {
                 trigger: 'item'
             },
-            itemStyle: {normal: {areaStyle: {type: 'default',color:'#223a72'},lineStyle:{
-                color:'#5df2f8',
-                width:'0.5'
+            itemStyle: {normal: {areaStyle: {type: 'default',color:'#5E9DBF'},lineStyle:{
+                color:'#2f8fbf'
             }}},
             data: [
                 {
@@ -253,26 +237,24 @@ var rader = {
     ]
 };
 
-var rader2 ={
+var rader2 = {
     title: {
         text: 'title',
         textStyle:{
-            color:'#fff'
+        	color:'#fff'
         }
     },
-    tooltip: {
-        trigger: 'axis' ,
-        color:'#ff0',
-    },
     textStyle:{
-            color:'#fff'
+        	color:'#fff'
         },
-    color:['#215e9f'],
+    tooltip: {
+        trigger: 'axis'
+    },
     legend: {
-        y: 'bottom',
+        x: 'center',
         data:['某软件'],
         textStyle:{
-            color:'#fff'
+        	color:'#fff'
         }
     },
     radar: [
@@ -284,21 +266,8 @@ var rader2 ={
                 {text: 'D', max: 100},
                 {text: 'E', max: 100}
             ],
-            center: ['45%','50%'],
-            radius: 60,
-            splitArea : {
-                            show : true,   
-                            areaStyle : {
-                                color: ["#030d3e"]  // 图表背景网格的颜色
-                            }
-                        },
-                        splitLine : {
-                            show : true,
-                            lineStyle : {
-                                width : 1,
-                                color : '#286fbb' // 图表背景网格线的颜色
-                            }
-                        }
+            center:  ['45%','50%'],
+            radius: 60
         },
         
     ],
@@ -308,9 +277,8 @@ var rader2 ={
              tooltip: {
                 trigger: 'item'
             },
-            itemStyle: {normal: {areaStyle: {type: 'default',color:'#223a72'},lineStyle:{
-                color:'#5df2f8',
-                width:'0.5'
+              itemStyle: {normal: {areaStyle: {type: 'default',color:'#5E9DBF'},lineStyle:{
+                color:'#2f8fbf'
             }}},
             data: [
                 {
@@ -323,6 +291,178 @@ var rader2 ={
     ]
 };
 
+var mdc1 ={
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} "
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        data:['直接访问'],
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    series: [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:335, name:'直接访问'}
+            ]
+        }
+    ]
+};
+var mdc2 ={
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} "
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        data:['直接访问'],
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    series: [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:335, name:'直接访问'}
+            ]
+        }
+    ]
+};
+var mdc3 ={
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} "
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        data:['直接访问'],
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    series: [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:335, name:'直接访问'}
+            ]
+        }
+    ]
+};
+var mdc4 ={
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} "
+    },
+    legend: {
+        orient: 'vertical',
+        x: 'left',
+        data:['直接访问'],
+        textStyle:{
+            color:'#fff'
+        }
+    },
+    series: [
+        {
+            name:'访问来源',
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:335, name:'直接访问'}
+            ]
+        }
+    ]
+};
 var circle1 = {
     series: [
         {
@@ -346,7 +486,8 @@ var circle1 = {
                 {value:335, name:'10%'},
                 {value:310, name:''}
             ],
-            color:["#0180c7","#2a448f"]
+            color:["#0180c7","#294696"]
+
         }
     ]
 };
@@ -374,7 +515,7 @@ var circle2 = {
                 {value:335, name:'10%'},
                 {value:310, name:''}
             ],
-            color:["#0180c7","#2a448f"]
+            color:["#0180c7","#294696"]
 
         }
     ]
@@ -403,7 +544,7 @@ var circle3 = {
                 {value:335, name:'10%'},
                 {value:310, name:''}
             ],
-            color:["#0180c7","#2a448f"]
+            color:["#0180c7","#294696"]
 
         }
     ]
@@ -450,7 +591,7 @@ var rightLine1 =  {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#215e9f'
+                    color:'#5E9DBF'
                 }
             }
         }
@@ -498,7 +639,7 @@ var rightLine2 =  {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#215e9f'
+                    color:'#5E9DBF'
                 }
             }
         }
@@ -546,7 +687,7 @@ var rightLine3 = {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#215e9f'
+                    color:'#5E9DBF'
                 }
             }
         }
@@ -612,105 +753,11 @@ var rightBar = {
     ]
 };
 
-var lineMiddle ={
-    title: {
-        text: 'title',
-        textStyle:{
-            color:'#fff'
-        }
-    },
-    textStyle:{
-            color:'#fff'
-        },
-    tooltip: {
-        trigger: 'axis'
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['周一','周二','周三','周四','周五','周六','周日']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [
-        {
-            name:'视频广告',
-            type:'line',
-            stack: '总量',
-            data:[150, 232, 201, 154, 190, 330, 410],
-            itemStyle:{
-                normal:{
-                    lineStyle:{
-                        color:'#2f8fbf'
-                    }
-                }
-            }, 
-            areaStyle:{
-                normal:{
-                    color:'#215e9f'
-                }
-            }
-        }
-    ]
-};
-
-var barMiddle ={
-    color: ['#3398DB'],
-    textStyle:{
-        color:'#fff'
-    },
-    tooltip : {
-        trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-        }
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    xAxis : [
-        {
-            type : 'category',
-            data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            axisTick: {
-                alignWithLabel: true
-            }
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    series : [
-        {
-            name:'直接访问',
-            type:'bar',
-            barWidth: '60%',
-            data:[10, 52, 200, 334, 390, 330, 220]
-        }
-    ]
-};
-
-
 
 var allData ={
 	echart:function(id,options){
 		echarts.init(document.getElementById(id)).setOption(options);
         echarts.init(document.getElementById(id)).resize();
-        setInterval(function(){
-            echarts.init(document.getElementById(id)).resize();
-        },3000)
 	},
     carousel:function(){
         var cardWrapWidth = $('#middle-middle').width();
@@ -833,15 +880,18 @@ var allData ={
         this.echart('circle1',circle1);
         this.echart('circle2',circle2);
         this.echart('circle3',circle3);
+        this.echart('mdc1',mdc1);
+        this.echart('mdc2',mdc2);
+        this.echart('mdc3',mdc3);
+        this.echart('mdc4',mdc4);
         this.echart('rightLine1',rightLine1);
         this.echart('rightLine2',rightLine2);
         this.echart('rightLine3',rightLine3);
         this.echart('rightBar',rightBar);
-        this.echart('line-middle',lineMiddle);
-        this.echart('bar-middle',barMiddle);
     },
     tab:function(id){
         var that = this;
+        console.log(123456)
         $(id).find(".tabNav li").each(function(index,item){
             $(item).click(function(){
                 $(id).find(".tabContent li").hide().eq(index).show();
@@ -879,37 +929,10 @@ var allData ={
 window.onload=function(){
     allData.tab('#tab1');
     allData.tab('#tab2');
-    allData.tab('#middle-middle');
+    allData.tab('#tab-bar-line');
     allData.init();
-    allData.carousel2(); 
+    // allData.carousel2(); 
     // allData.wheel('rightTable');
     allData.wheel('leftTable');
-    setInterval(function(){
-        $("#header p").text(utils.getToday());
-    },1000)
-
-    // allData.carousel(); 
-    //     jQuery.ajax({
-    //     url:'http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getRoutingsStatistic',
-    //     type:'get',
-    //     async:false,
-    //     data:{
-    //         date:"2018-11-02"
-    //     },
-    //     dataType:'jsonp',
-    //     jsonp:'callback',
-    //     success:function(data){
-    //         console.log(data);
-    //         console.log(132);
-    //     },
-    //     error:function(e){
-    //         console.log(e)
-    //     },
-    //     complete:function(){
-    //         console.log(123456789)
-    //     }
-    // })
-
-
-    
+    allData.carousel();  
 }
