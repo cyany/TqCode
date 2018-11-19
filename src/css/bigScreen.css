@@ -23,6 +23,9 @@ body{
 	justify-content: flex-start;
 	flex-direction: column;
 }
+.lefttablebox{
+	height: 234px;
+}
 #container{
 	display: flex;
 	justify-content: space-between;
@@ -70,6 +73,7 @@ overflow: hidden;*/
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	height: 182px;
 }
 #left{
 	flex:1;
@@ -116,6 +120,9 @@ overflow: hidden;*/
 }
 .viewMore{
 	text-align: right;
+	position: relative;
+	top: -78px;
+    left: -53px;
 }
 .viewMore button{
 	outline: none;
@@ -250,7 +257,7 @@ overflow: hidden;*/
 	width: 65px;
 }
 .personCard>li p{
-	margin:0;
+	margin:35px 0 35px 0;
 }
 .chooseTime{
 	text-align: left;
@@ -286,4 +293,7 @@ overflow: hidden;*/
 	outline: none;
 	border: none;
 	color: rgba(166, 209, 255, 0.38);
+}
+.left-middle-wrap{
+	height: 300px;
 }

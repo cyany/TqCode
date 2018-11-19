@@ -2,7 +2,6 @@ import "./../css/bigScreen.css";
 // import "./../css/bigScreen.scss";
 import utils from "./utils.js";
 
-console.log(123);
 var line1 = {
     title: {
         text: '里程(km)',
@@ -25,7 +24,7 @@ var line1 = {
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: []
+        data: ['周一','周二','周三','周四','周五','周六','周日']
     },
     yAxis: {
         type: 'value'
@@ -35,7 +34,7 @@ var line1 = {
             name:'里程',
             type:'line',
             stack: '总量',
-            data:[],
+            data:[150,250,180,465,423,156,120,420],
             itemStyle:{
                 normal:{
                     lineStyle:{
@@ -45,7 +44,7 @@ var line1 = {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#5E9DBF'
+                    color:'#215e9f'
                 }
             }
         }
@@ -93,7 +92,7 @@ var line2 = {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#5E9DBF'
+                    color:'#215e9f'
                 }
             }
         }
@@ -141,7 +140,7 @@ var line3 = {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#5E9DBF'
+                    color:'#215e9f'
                 }
             }
         }
@@ -149,58 +148,60 @@ var line3 = {
 };
 
     var Today = new Date().toLocaleDateString().replace(/\//g,"-");
-    $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=week",
-        function(data){
-            console.log(data);
-            var newArrX = [],newArrY=[];
-            $.each(data.data,function(index,item){
-                newArrX.push(item.statistic_date);
-                newArrY.push((item.distance/1000).toFixed(2));
-            });
-            console.log(newArrX,newArrY,123456)
-            line1.xAxis.data= newArrX;
-            line1.series[0].data= newArrY;
-        })
+    // $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=week",
+    //     function(data){
+    //         console.log(data);
+    //         var newArrX = [],newArrY=[];
+    //         $.each(data.data,function(index,item){
+    //             newArrX.push(item.statistic_date);
+    //             newArrY.push((item.distance/1000).toFixed(2));
+    //         });
+    //         console.log(newArrX,newArrY,123456)
+    //         line1.xAxis.data= newArrX;
+    //         line1.series[0].data= newArrY;
+    //     })
 
-    $("#carWeek").click(function(){
-         $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
-            function(data){
-              var newArrX = [],newArrY=[];
-                $.each(data.data,function(index,item){
-                    newArrX.push(item.statistic_date);
-                    newArrY.push((item.distance/1000).toFixed(2));
-                })
-                console.log(newArrX,newArrY,123456)
-                line1.xAxis.data= newArrX;
-                line1.series[0].data= newArrY;
-            })
-    })
-    $("#carMonth").click(function(){
-         $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
-            function(data){
-                console.log(data);
-                line1 = data.data;
-            })
-    });
+    // $("#carWeek").click(function(){
+    //      $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
+    //         function(data){
+    //           var newArrX = [],newArrY=[];
+    //             $.each(data.data,function(index,item){
+    //                 newArrX.push(item.statistic_date);
+    //                 newArrY.push((item.distance/1000).toFixed(2));
+    //             })
+    //             console.log(newArrX,newArrY,123456)
+    //             line1.xAxis.data= newArrX;
+    //             line1.series[0].data= newArrY;
+    //         })
+    // })
+    // $("#carMonth").click(function(){
+    //      $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
+    //         function(data){
+    //             console.log(data);
+    //             line1 = data.data;
+    //         })
+    // });
 
 var rader = {
     title: {
         text: 'title',
         textStyle:{
-        	color:'#fff'
+            color:'#fff'
         }
     },
     tooltip: {
-        trigger: 'axis'
+        trigger: 'axis' ,
+        color:'#ff0',
     },
     textStyle:{
-        	color:'#fff'
+            color:'#fff'
         },
+    color:['#215e9f'],
     legend: {
-        x: 'center',
+        y: 'bottom',
         data:['某软件'],
         textStyle:{
-        	color:'#fff'
+            color:'#fff'
         }
     },
     radar: [
@@ -213,7 +214,20 @@ var rader = {
                 {text: 'E', max: 100}
             ],
             center: ['45%','50%'],
-            radius: 60
+            radius: 60,
+            splitArea : {
+                            show : true,   
+                            areaStyle : {
+                                color: ["#030d3e"]  // 图表背景网格的颜色
+                            }
+                        },
+                        splitLine : {
+                            show : true,
+                            lineStyle : {
+                                width : 1,
+                                color : '#286fbb' // 图表背景网格线的颜色
+                            }
+                        }
         },
         
     ],
@@ -223,8 +237,9 @@ var rader = {
              tooltip: {
                 trigger: 'item'
             },
-            itemStyle: {normal: {areaStyle: {type: 'default',color:'#5E9DBF'},lineStyle:{
-                color:'#2f8fbf'
+            itemStyle: {normal: {areaStyle: {type: 'default',color:'#223a72'},lineStyle:{
+                color:'#5df2f8',
+                width:'0.5'
             }}},
             data: [
                 {
@@ -237,24 +252,26 @@ var rader = {
     ]
 };
 
-var rader2 = {
+var rader2 ={
     title: {
         text: 'title',
         textStyle:{
-        	color:'#fff'
+            color:'#fff'
         }
     },
-    textStyle:{
-        	color:'#fff'
-        },
     tooltip: {
-        trigger: 'axis'
+        trigger: 'axis' ,
+        color:'#ff0',
     },
+    textStyle:{
+            color:'#fff'
+        },
+    color:['#215e9f'],
     legend: {
-        x: 'center',
+        y: 'bottom',
         data:['某软件'],
         textStyle:{
-        	color:'#fff'
+            color:'#fff'
         }
     },
     radar: [
@@ -266,8 +283,21 @@ var rader2 = {
                 {text: 'D', max: 100},
                 {text: 'E', max: 100}
             ],
-            center:  ['45%','50%'],
-            radius: 60
+            center: ['45%','50%'],
+            radius: 60,
+            splitArea : {
+                            show : true,   
+                            areaStyle : {
+                                color: ["#030d3e"]  // 图表背景网格的颜色
+                            }
+                        },
+                        splitLine : {
+                            show : true,
+                            lineStyle : {
+                                width : 1,
+                                color : '#286fbb' // 图表背景网格线的颜色
+                            }
+                        }
         },
         
     ],
@@ -277,8 +307,9 @@ var rader2 = {
              tooltip: {
                 trigger: 'item'
             },
-              itemStyle: {normal: {areaStyle: {type: 'default',color:'#5E9DBF'},lineStyle:{
-                color:'#2f8fbf'
+            itemStyle: {normal: {areaStyle: {type: 'default',color:'#223a72'},lineStyle:{
+                color:'#5df2f8',
+                width:'0.5'
             }}},
             data: [
                 {
@@ -291,179 +322,15 @@ var rader2 = {
     ]
 };
 
-var mdc1 ={
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} "
-    },
-    legend: {
-        orient: 'vertical',
-        x: 'left',
-        data:['直接访问'],
-        textStyle:{
-            color:'#fff'
-        }
-    },
-    series: [
-        {
-            name:'访问来源',
-            type:'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-                normal: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    show: true,
-                    textStyle: {
-                        fontSize: '30',
-                        fontWeight: 'bold'
-                    }
-                }
-            },
-            labelLine: {
-                normal: {
-                    show: false
-                }
-            },
-            data:[
-                {value:335, name:'直接访问'}
-            ]
-        }
-    ]
-};
-var mdc2 ={
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} "
-    },
-    legend: {
-        orient: 'vertical',
-        x: 'left',
-        data:['直接访问'],
-        textStyle:{
-            color:'#fff'
-        }
-    },
-    series: [
-        {
-            name:'访问来源',
-            type:'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-                normal: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    show: true,
-                    textStyle: {
-                        fontSize: '30',
-                        fontWeight: 'bold'
-                    }
-                }
-            },
-            labelLine: {
-                normal: {
-                    show: false
-                }
-            },
-            data:[
-                {value:335, name:'直接访问'}
-            ]
-        }
-    ]
-};
-var mdc3 ={
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} "
-    },
-    legend: {
-        orient: 'vertical',
-        x: 'left',
-        data:['直接访问'],
-        textStyle:{
-            color:'#fff'
-        }
-    },
-    series: [
-        {
-            name:'访问来源',
-            type:'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-                normal: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    show: true,
-                    textStyle: {
-                        fontSize: '30',
-                        fontWeight: 'bold'
-                    }
-                }
-            },
-            labelLine: {
-                normal: {
-                    show: false
-                }
-            },
-            data:[
-                {value:335, name:'直接访问'}
-            ]
-        }
-    ]
-};
-var mdc4 ={
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} "
-    },
-    legend: {
-        orient: 'vertical',
-        x: 'left',
-        data:['直接访问'],
-        textStyle:{
-            color:'#fff'
-        }
-    },
-    series: [
-        {
-            name:'访问来源',
-            type:'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-                normal: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    show: true,
-                    textStyle: {
-                        fontSize: '30',
-                        fontWeight: 'bold'
-                    }
-                }
-            },
-            labelLine: {
-                normal: {
-                    show: false
-                }
-            },
-            data:[
-                {value:335, name:'直接访问'}
-            ]
-        }
-    ]
-};
 var circle1 = {
+    title:{
+        text:'title',
+        textStyle:{
+            color:'#fff'
+        },
+        bottom:0,
+        left:'center'
+    },
     series: [
         {
             type:'pie',
@@ -486,13 +353,20 @@ var circle1 = {
                 {value:335, name:'10%'},
                 {value:310, name:''}
             ],
-            color:["#0180c7","#294696"]
-
+            color:["#0180c7","#2a448f"]
         }
     ]
 };
 
 var circle2 = {
+    title:{
+        text:'title',
+        textStyle:{
+            color:'#fff'
+        },
+        bottom:0,
+        left:'center'
+    },
     series: [
         {
             type:'pie',
@@ -515,13 +389,21 @@ var circle2 = {
                 {value:335, name:'10%'},
                 {value:310, name:''}
             ],
-            color:["#0180c7","#294696"]
+            color:["#0180c7","#2a448f"]
 
         }
     ]
 };
 
 var circle3 = {
+    title:{
+        text:'title',
+        textStyle:{
+            color:'#fff'
+        },
+        bottom:0,
+        left:'center'
+    },
     series: [
         {
             type:'pie',
@@ -544,7 +426,7 @@ var circle3 = {
                 {value:335, name:'10%'},
                 {value:310, name:''}
             ],
-            color:["#0180c7","#294696"]
+            color:["#0180c7","#2a448f"]
 
         }
     ]
@@ -591,7 +473,7 @@ var rightLine1 =  {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#5E9DBF'
+                    color:'#215e9f'
                 }
             }
         }
@@ -639,7 +521,7 @@ var rightLine2 =  {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#5E9DBF'
+                    color:'#215e9f'
                 }
             }
         }
@@ -687,7 +569,7 @@ var rightLine3 = {
             }, 
             areaStyle:{
                 normal:{
-                    color:'#5E9DBF'
+                    color:'#215e9f'
                 }
             }
         }
@@ -753,6 +635,150 @@ var rightBar = {
     ]
 };
 
+var mdc1 ={
+    title:{
+        text:'title',
+        textStyle:{
+            color:'#fff'
+        },
+        bottom:0,
+        left:'center'
+    },
+    series: [
+        {
+            type:'pie',
+            radius: ['45%', '70%'],
+            center:['50%','45%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: true,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '12',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            data:[
+                {value:335, name:'10%'},
+                {value:310, name:''}
+            ],
+            color:["#0180c7","#2a448f"]
+        }
+    ]
+};
+var mdc2 ={
+    title:{
+        text:'title',
+        textStyle:{
+            color:'#fff'
+        },
+        bottom:0,
+        left:'center'
+    },
+    series: [
+        {
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: true,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '12',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            data:[
+                {value:335, name:'10%'},
+                {value:310, name:''}
+            ],
+            color:["#0180c7","#2a448f"]
+        }
+    ]
+};
+var mdc3 ={
+    title:{
+        text:'title',
+        textStyle:{
+            color:'#fff'
+        },
+        bottom:0,
+        left:'center'
+    },
+    series: [
+        {
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: true,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '12',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            data:[
+                {value:335, name:'10%'},
+                {value:310, name:''}
+            ],
+            color:["#0180c7","#2a448f"]
+        }
+    ]
+};
+
+var mdc4 ={
+    title:{
+        text:'title',
+        textStyle:{
+            color:'#fff'
+        },
+        bottom:0,
+        left:'center'
+    },
+    series: [
+        {
+            type:'pie',
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: true,
+                    position: 'center'
+                },
+                emphasis: {
+                    show: true,
+                    textStyle: {
+                        fontSize: '12',
+                        fontWeight: 'bold'
+                    }
+                }
+            },
+            data:[
+                {value:335, name:'10%'},
+                {value:310, name:''}
+            ],
+            color:["#0180c7","#2a448f"]
+        }
+    ]
+};
+
+
 
 var allData ={
 	echart:function(id,options){
@@ -788,88 +814,43 @@ var allData ={
     },
     carousel2:function(){
         var barWrapWidth = $('.barWrap').width();
-        var middleBarData="";
+        var circleArr=[1,2,3];
+        console.log("132245678")
         function dealWidth(){
-            $(".barWrap ul").html("");
-            $.each(middleBarData,function(index,item){
-                if(item["first_sum"]=="0"){
-                    $(".barWrap ul").append("<li><span>0.00%</span> <div style='height:0px'></div> <span title="+item["name"]+"(未分配)>"+item["name"]+"(未分配)"+"</span></li>")  
-
-                }else{
-                    var detailNum =(Number(item["first_count"])*100/Number(item["first_sum"])).toFixed(2);
-                    console.log(detailNum)
-                    $(".barWrap ul").append("<li><span>"+detailNum+"%</span> <div style='height:"+(detailNum/100)*250+"px'></div> <span title="+item["name"]+">"+item.name+"</span></li>")  
-                }
+            $.each(circleArr,function(index,item){
+                $(".barWrap ul").append('<li><div id="mdc'+(index+1)+'" style="width:200px;height: 350px;"></div></li>')
             });
 
-            $(".barWrap ul").width($(".barWrap li").length*100+"%");
-            $(".barWrap li").width((100/15/$(".barWrap li").length)+"%");
-            var flag=0,step=0;
-            $(".arrowbar-right").click(function(){
-                flag+=100;
-                step++;
-                if(step>=parseInt($(".barWrap").width()/($('.barWrap li').width()+30))-5){
-                    flag=0;
-                    step=0;
-                }
-                $(".barWrap ul").css({
-                    "transform":'translateX(-'+flag+'px)',
-                    "transition":'all 1s'
-                })
-            });
-            $(".arrowbar-left").click(function(){
-                flag-=100;
-                step--;
-                if(step<0){
-                    flag=0;
-                    step =0
-                }
-                $(".barWrap ul").css({
-                    "transform":'translateX(-'+flag+'px)',
-                    "transition":'all 1s'
-                })
-            });
+            // $(".barWrap ul").width($(".barWrap li").length*100+"%");
+            // $(".barWrap li").width((100/15/$(".barWrap li").length)+"%");
+            // var flag=0,step=0;
+            // $(".arrowbar-right").click(function(){
+            //     flag+=100;
+            //     step++;
+            //     if(step>=parseInt($(".barWrap").width()/($('.barWrap li').width()+30))-5){
+            //         flag=0;
+            //         step=0;
+            //     }
+            //     $(".barWrap ul").css({
+            //         "transform":'translateX(-'+flag+'px)',
+            //         "transition":'all 1s'
+            //     })
+            // });
+            // $(".arrowbar-left").click(function(){
+            //     flag-=100;
+            //     step--;
+            //     if(step<0){
+            //         flag=0;
+            //         step =0
+            //     }
+            //     $(".barWrap ul").css({
+            //         "transform":'translateX(-'+flag+'px)',
+            //         "transition":'all 1s'
+            //     })
+            // });
         }
         var Today = new Date().toLocaleDateString().replace(/\//g,"-");
-        $('#routeTime').val(Today);
-        $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getRoutingsStatistic?statistic_type=day&date="+Today,
-            function(data){
-                console.log(data);
-                middleBarData = data.data;
-            }).then(function(){
-                console.log(middleBarData)
-                dealWidth();
-            });
-        $('#routeTime').change(function(){
-            $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getRoutingsStatistic?statistic_type=day&date="+$('#routeTime').val(),
-            function(data){
-                console.log(data);
-                middleBarData = data.data;
-            }).then(function(){
-                console.log(middleBarData)
-                dealWidth();
-            });
-        });
-        $("#routeWeek").click(function(){
-            $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getRoutingsStatistic?statistic_type=week",
-            function(data){
-                console.log(data);
-                middleBarData = data.data;
-            }).then(function(){
-                console.log(middleBarData)
-                dealWidth();
-            });
-        });
-        $("#routeMonth").click(function(){
-            $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getRoutingsStatistic?statistic_type=month",
-            function(data){
-                console.log(data);
-                middleBarData = data.data;
-            }).then(function(){
-                console.log(middleBarData)
-                dealWidth();
-            });
-        });  
+        dealWidth();
     },
     init:function(){
         this.echart('line1',line1);
@@ -880,14 +861,19 @@ var allData ={
         this.echart('circle1',circle1);
         this.echart('circle2',circle2);
         this.echart('circle3',circle3);
-        this.echart('mdc1',mdc1);
-        this.echart('mdc2',mdc2);
-        this.echart('mdc3',mdc3);
-        this.echart('mdc4',mdc4);
         this.echart('rightLine1',rightLine1);
         this.echart('rightLine2',rightLine2);
         this.echart('rightLine3',rightLine3);
         this.echart('rightBar',rightBar);
+        var that = this;
+        setTimeout(function(){
+            that.echart('mdc1',mdc1);
+            that.echart('mdc2',mdc2);
+            that.echart('mdc3',mdc3);
+            that.echart('mdc4',mdc4);
+            console.log(123)
+        },3000)
+        
     },
     tab:function(id){
         var that = this;
@@ -930,8 +916,8 @@ window.onload=function(){
     allData.tab('#tab1');
     allData.tab('#tab2');
     allData.tab('#tab-bar-line');
+    allData.carousel2(); 
     allData.init();
-    // allData.carousel2(); 
     // allData.wheel('rightTable');
     allData.wheel('leftTable');
     allData.carousel();  
