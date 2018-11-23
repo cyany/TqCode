@@ -5,7 +5,7 @@ body{
 .tabNavWrap,
 .left-middle-wrap,
 .lefttablebox,
-#rightBar,
+.rightbottom,
 .middle-middle-wrap,
 .middle-bottom-wrap,
 .middle-top-wrap{
@@ -24,7 +24,8 @@ body{
 	flex-direction: column;
 }
 .lefttablebox{
-	height: 234px;
+	height: 268px;
+	overflow: hidden;
 }
 #container{
 	display: flex;
@@ -90,6 +91,7 @@ overflow: hidden;*/
 }
 #left-bottom table{
 	width:100%;
+	max-width: 350px;
 	border-spacing: 0;
 	overflow: hidden;
 	color: rgba(166, 209, 255, 0.38);
@@ -176,6 +178,7 @@ overflow: hidden;*/
 .all-wrapper h2 small{
 	font-weight: normal;
 	font-size: 18px;
+	margin-right: 10px;
 }
 #header h2{
 	text-align: center;
@@ -190,6 +193,7 @@ overflow: hidden;*/
 	color: #7092d1;
 	font-size: 20px;
 	font-weight: bold;
+	margin-bottom: 0;
 }
 .tabContent{
 	overflow: hidden;
@@ -197,6 +201,8 @@ overflow: hidden;*/
 	flex-shrink: 0;
 	list-style: none;
 	padding-left:0;
+	flex-direction: column;
+	justify-content: flex-start;
 }
 .tabContent li{
 	width: 100%;
@@ -241,7 +247,7 @@ overflow: hidden;*/
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-	height: 250px;
+	height: 217px;
 	margin: 0 15px;
 	text-align: center;
 }
@@ -254,7 +260,8 @@ overflow: hidden;*/
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
-	width: 65px;
+	width: 69px;
+	display: inline-block;
 }
 .personCard>li p{
 	margin:35px 0 35px 0;
@@ -288,7 +295,8 @@ overflow: hidden;*/
 .chooseTime{
 	text-align: center;
 }
-#routeTime{
+#routeTime,
+#faultDate{
 	background: transparent;
 	outline: none;
 	border: none;
@@ -296,4 +304,204 @@ overflow: hidden;*/
 }
 .left-middle-wrap{
 	height: 300px;
+}
+.rightboxbtn{
+	text-align: right;
+}
+.rightboxbtn button{
+	outline: none;
+	border: none;
+	margin-top: 15px;
+	margin-right: 15px;
+	background: transparent;
+	color: rgba(166, 209, 255, 0.38); 
+}
+.poptableMask{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+.poptable{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate3d(-50%,-50%,0);
+	max-width: 65%;
+	color: #000;
+	background-color: #fff;
+	padding: 15px;
+	box-sizing: border-box;
+	min-height: 629px;
+}
+.poptitle{
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+.poptitle h2{
+	flex-basis: 50%;
+	text-align: center;
+	margin-bottom: 0;
+	font-weight: normal;
+	font-size: 16px;
+	text-align: left;
+}
+.poptable p{
+	font-size: 20px;
+	margin: 0;
+}
+.imgCarouselbox,
+.imgCarouselbox2{
+	width: 90%;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+}
+.imgCarouselbox ul,
+.imgCarouselbox2 ul{
+	padding-left: 0;
+	margin:0;
+	list-style: none;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+.imgCarouselArrow,
+.imgCarouselArrow2{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.imgCarouselArrow a,
+.imgCarouselArrow2 a{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	color: #000;
+	font-size: 30px;
+	text-decoration: none;
+	line-height: 30px;
+	text-align: center;
+}
+.imgCarouselbox li img,
+.imgCarouselbox2 li img{
+	width: 100%;
+	height: 200px;
+}
+
+.closeTablePop{
+	text-align: right;
+	color: #000;
+	margin: 0;	
+	cursor: pointer;
+}
+.poptableMask,
+.poptable{
+	display: none;
+}
+#smallmap{
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	top: 20%;
+	right: 10%;
+	display: none;
+	z-index: 10;
+}
+.controllTab{
+	display: flex;
+	justify-content: flex-start;
+	list-style: none;
+	padding: 0;
+	margin:5px 0;
+}
+.controllTab li{
+	padding: 5px;
+}
+.controllTab li.active{
+	background: #184682;
+	color: #fff;
+}
+.repairTitle{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.repairTitle h2{
+	flex-basis: 50%;
+	margin-bottom: 0;
+}
+.repairBox{
+	position: absolute;
+	width: 100%;
+	opacity: 0;
+}
+.applyBox{
+	position: relative;
+}
+.imgCarouselbox li{
+    box-sizing: border-box;
+}
+#left-bottom table td{
+	overflow: hidden;
+}
+#left-bottom table td span{
+	display: inline-block;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+@media screen and (max-width: 1024px) {
+	#left-bottom table td{
+		max-width: 54px;
+	}
+}
+.declareBox,
+.sendReparir{
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+.declareBox h2,
+.sendReparir h2{
+	width: 50%;
+	font-weight: normal;
+	font-size: 16px;
+
+}
+.declareBox .de-descript,
+.declareBox .de-location,
+.sendReparir .de-location,
+.sendReparir .re-desc{
+	width: 100%;
+}
+.bigPic{
+	width: 80%;
+	position: fixed;
+	top: 10%;
+	left: 50%;
+	transform: translateX(-50%);
+	display: none;
+}
+.bigPic img{
+	width: 100%;
+}
+.bigPic h2{
+	text-align: right;
+	color: #fff;
+	font-size: 50px;
+	cursor: pointer;
+	position: absolute;
+	right: 30px;
+    top: 0;
+    margin: 0;
 }

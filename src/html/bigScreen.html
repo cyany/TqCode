@@ -6,6 +6,8 @@
 <script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 	<script src="./src/js/bigScreenDetail.js"></script>
+	<script src="http://api.map.baidu.com/api?v=2.0&amp;ak=53oVIOgmSIejwV7EfphPgTynOZbIiVYu"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&amp;ak=53oVIOgmSIejwV7EfphPgTynOZbIiVYu&amp;services=&amp;t=20181029172410"></script>
 	<!-- <script src="./../js/bigScreen.js"></script> -->
 </head>
 <body>
@@ -47,25 +49,12 @@
 					</div>
 				</div>
 				<div id="left-bottom">
-					<h2>我是标题 <small>iamititle</small></h2>
+					<h2>我是标题 <small>iamititle</small><input type="date" id="faultDate"></h2>
 					<div class="lefttablebox">
+						<h2 style="display: none;">当天无报障信息</h2>
 						<table cellpadding="10" id="leftTable">
-						<tr>
-								<td>2019-01-01 00：00：00</td>
-								<td>事情1</td>
-								<td>事情2</td>
-							</tr>
-							<tr>
-								<td>2019-01-01 00：00：00</td>
-								<td>事情1</td>
-								<td>事情2</td>
-							</tr>
-							<tr>
-								<td>2019-01-01 00：00：00</td>
-								<td>事情1</td>
-								<td>事情2</td>
-							</tr>	
-					</table>
+							<tbody></tbody>	
+						</table>
 					</div>
 				</div>
 			</div>
@@ -111,6 +100,7 @@
 							<li><div class="timeDist">
 								<button id="lightWeek">一星期</button>
 								<button id="lightMonth">一个月</button>
+								<button id="lightThreemonth">三个月</button>
 							</div>
 								<div id="line-middle" style="width: 100%;height: 300px;"></div></li>
 							<li><div id="bar-middle" style="width: 100%;height: 300px;"></div></li>
@@ -155,8 +145,15 @@
 					</div>
 				</div>
 				<div id="right-middle">
-					<h2>我是标题 <small>iamititle</small></h2>
+					<h2>我是标题 <small>iamititle</small>	</h2>
+					<div class="rightbottom">
+						<div class="rightboxbtn">
+							<button id="rightweek">一星期</button>
+							<button id="rightmonth">一个月</button>
+							<button id="rightthreemonth">三个月</button>
+						</div>
 					<div id="rightBar" style="width: 100%;height: 617px;"></div>
+					</div>
 				</div>
 				<!-- <div id="right-bottom">
 					<table cellpadding="10" id="rightTable">
@@ -181,106 +178,66 @@
 
 		</div>
 	</div>
+	<div class="poptableMask"></div>
+	<div class="poptable">
+		<p class="closeTablePop">X</p>
+		<ul class="controllTab">
+			<li class="active">已申报</li>
+			<li>已派单</li>
+		</ul>
+		<div class="declareBox">
+			<h2 class="de-status"></h2>
+			<h2 class="de-time"></h2>
+			<h2 class="de-type"></h2>
+			<h2 class="de-light"></h2>
+			<h2 class="de-location"></h2>
+			<h2 class="de-descript"></h2>
+		</div>
+		<div class="sendReparir">
+			<h2 class="re-status"></h2>
+			<h2 class="re-appoint"></h2>
+			<h2 class="re-barrier"></h2>
+			<h2 class="re-time"></h2>
+			<h2 class="de-location"></h2>
+			<h2 class="re-desc"></h2>
+		</div>
+		<!-- <p class="declare_repair"></p> -->
+		<!-- <div class="poptitle">
+			<h2 class="declare_time"></h2>
+			<h2 class="fault_type"></h2>
+			<h2 class="showMap"></h2>
+			<h2 class="lightNum"></h2>
+			<h2 class="declare_description"></h2>
+		</div> -->
+		<div id="smallmap"></div>
+		<div class="carouselBivWrapper">
+			<div class="applyBox">
+				<h3>故障图片</h3>
+				<div class="imgCarouselbox">
+					<ul>
+						
+					</ul>
+				</div>
+				<div class="imgCarouselArrow">
+					<a href="javascript:;" class="imgCarouselArrow-left">&lt;</a>
+					<a href="javascript:;" class="imgCarouselArrow-right">&gt;</a>
+				</div>
+			</div>
+			<div class="repairBox">
+				<h3>维修图片</h3>
+				<div class="imgCarouselbox">
+					<ul>
+					</ul>
+				</div>
+				<div class="imgCarouselArrow">
+					<a href="javascript:;" class="imgCarouselArrow-left">&lt;</a>
+					<a href="javascript:;" class="imgCarouselArrow-right">&gt;</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bigPic">
+		<h2>X</h2>
+	</div>
 </body>
-<!-- <style>
-	body{
-			background: #030d3e;
-			color: #fff;
-		}
-	.all-wrapper{
-		display: flex;
-		justify-content: flex-start;
-		flex-direction: column;
-	}
-	#container{
-		display: flex;
-		justify-content: center;
-		justify-content: space-between;
-		align-items: flex-start;
-	}
-	#header{
-		text-align: center;
-	}
-	.todayProblem,
-	.todaySolve{
-		flex:1;
-	}
-	#left-middle{
-		display: flex;
-	}
-	#left-middle>div{
-		flex: 1;
-	}
-	.route{
-		flex: 1.5;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-	.route>div{
-		flex: 1;
-	}
-	#middle-top{
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-	#left{
-		flex:1;
-	}
-	#middle{
-		flex:2;
-	}
-	#right{
-		flex:1;
-	}
-	#left-bottom table{
-		width:100%;
-		border:1px solid #ccc;
-		border-spacing: 0;
-	}
-	#middle-top{
-		text-align: center;
-	}
-	#middle-middle{
-		width: 100%;
-		position: relative;
-		overflow:hidden;
-	}
-	.personCard{
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		flex-wrap: wrap;
-	}
-	.personCard>li{
-		text-align: center;
-		list-style: none;
-	}
-	.personCardArrow {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate3d(-50%,-50%,0);
-		width:100%;
-		color: #fff;
-		padding: 30px;
-		box-sizing: border-box;
-	}
-	.personCardArrow a{
-		color: #fff;
-		font-size: 20px;
-		text-decoration: none;
-	}
-	.arrow-left{
-		float: left;
-	}
-	.arrow-right{
-		float: right;
-	}
-	.right-bottom table{
-		width:100%;
-		border: 1px solid #ccc;
-	}
-
-</style> -->
+</html>

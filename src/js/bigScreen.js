@@ -142,39 +142,8 @@ var line3 = {
     }]
 };
 
-var Today = new Date().toLocaleDateString().replace(/\//g, "-");
-// $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=week",
-//     function(data){
-//         console.log(data);
-//         var newArrX = [],newArrY=[];
-//         $.each(data.data,function(index,item){
-//             newArrX.push(item.statistic_date);
-//             newArrY.push((item.distance/1000).toFixed(2));
-//         });
-//         console.log(newArrX,newArrY,123456)
-//         line1.xAxis.data= newArrX;
-//         line1.series[0].data= newArrY;
-//     })
-// $("#carWeek").click(function(){
-//      $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
-//         function(data){
-//           var newArrX = [],newArrY=[];
-//             $.each(data.data,function(index,item){
-//                 newArrX.push(item.statistic_date);
-//                 newArrY.push((item.distance/1000).toFixed(2));
-//             })
-//             console.log(newArrX,newArrY,123456)
-//             line1.xAxis.data= newArrX;
-//             line1.series[0].data= newArrY;
-//         })
-// })
-// $("#carMonth").click(function(){
-//      $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type=month",
-//         function(data){
-//             console.log(data);
-//             line1 = data.data;
-//         })
-// });
+
+
 var rader = {
     title: {
         text: '保障数量',
@@ -578,7 +547,7 @@ var rightLine3 = {
 };
 var rightBar = {
     title: {
-        text: '世界人口总量',
+        text: '维修情况',
         textStyle: {
             color: '#fff'
         }
@@ -593,7 +562,7 @@ var rightBar = {
         }
     },
     legend: {
-        data: ['2011年', '2012年', '2013'],
+        data: ['已申报', '已派单', '已维修'],
         textStyle: {
             color: '#fff'
         }
@@ -610,33 +579,28 @@ var rightBar = {
     },
     yAxis: {
         type: 'category',
-        data: ['巴西', '印尼', '美国', '印度', '中国', '世界人口(万)']
-    },
-    itemStyle: {
-        normal: {
-
-}
+        data: ['其他故障', '外挂异物', '灯具不亮', '灯杆倾斜', '灯杆损坏','电线裸露']
     },
     series: [{
-        name: '2011年',
+        name: '已申报',
         type: 'bar',
-        data: [18203, 23489, 29034, 104970, 131744, 630230]
+        data: [0, 0, 0, 0, 0, 0]
     },
     {
-        name: '2012年',
+        name: '已派单',
         type: 'bar',
-        data: [19325, 23438, 31000, 121594, 134141, 681807]
+        data: [0, 0, 0, 0, 0, 0]
     },
     {
-        name: '2013',
+        name: '已维修',
         type: 'bar',
-        data: [19325, 23438, 31000, 121594, 134141, 681807]
+        data: [0, 0, 0, 0, 0, 0]
     }]
 };
 
 var lineMiddle = {
     title: {
-        text: 'title',
+        text: '灯况',
         textStyle: {
             color: '#fff'
         }
@@ -720,15 +684,15 @@ var barMiddle = {
     }]
 };
 
-// $("#raderThreeMonth").click(function(){
-//     raderFun('threemonth');
-// })
+let eIArr=[];
 var allData = {
     echart: function(id, options) {
-        echarts.init(document.getElementById(id)).setOption(options);
-        echarts.init(document.getElementById(id)).resize();
-        // setInterval(function() {
-        //     echarts.init(document.getElementById(id)).resize();
+        var echartInstance = echarts.init(document.getElementById(id));
+        eIArr.push(echartInstance);
+        echartInstance.setOption(options);
+        echartInstance.resize();
+        // setTimeout(function() {
+        //     echarts.init(document.getElementById('line-middle')).resize();
         // },
         // 3000)
     },
@@ -863,7 +827,21 @@ var allData = {
         $(id).find(".tabNav li").each(function(index, item) {
             $(item).click(function() {
                 $(id).find(".tabContent li").hide().eq(index).show();
-                that.init();
+                // that.init();
+                console.log(eIArr,"eirr");
+                var resizeInstance = ['line1','line2','line3','line-middle','bar-middle','rightLine1','rightLine2','rightLine3'];
+                $.each(eIArr,function(index,item){
+                    // if(item._dom.id =="line2" || item._dom.id=="line3"){
+                    //     console.log(this,78945611231202)
+                    //     this.resize();
+                    // }
+                    var _this = this;
+                    $.each(resizeInstance,function(index1,item1){
+                        if(item._dom.id==item1){
+                            _this.resize();
+                        }
+                    })
+                })
             })
         });
     },
@@ -896,19 +874,77 @@ var allData = {
 }
 
 window.onload = function() {
-    allData.tab('#tab1');
-    allData.tab('#tab2');
-    allData.tab('#middle-middle');
-    allData.init();
-    // allData.carousel2(); 
+    allData.carousel2(); 
     // allData.wheel('rightTable');
     allData.wheel('leftTable');
     setInterval(function() {
         $("#header p").text(utils.getToday());
     },
     1000)
+    allData.init();
+    allData.tab('#tab1');
+    allData.tab('#tab2');
+    allData.tab('#middle-middle');
 
-    // raderFun('day');
+
+    function leftCarFun(time){
+        var Today = new Date().toLocaleDateString().replace(/\//g, "-");
+        $.getJSON("http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getCarStatistic?statistic_type="+time,
+                function(data){
+                    var allDatainner =data.data;
+                    if(allDatainner.length>0){
+                        var todayTime = new Date(new Date().toLocaleDateString()).getTime();
+                        var tempTime;
+                        var cirFlag=false;
+                        var newArrX = [],newArrY=[];
+                        var numloop =100;
+                        if(time=="week"){
+                            numloop = 7;
+                        }else if(time =="month"){
+                            numloop = 30;
+                        }
+                        for (var i = 0; i < numloop; i++) {
+                            $.each(allDatainner,
+                            function(index, item) {
+                                cirFlag =true;
+                                tempTime = new Date(todayTime).toLocaleDateString().replace(/\//g, "-");
+                                if (tempTime == item["statistic_date"]) {
+                                    newArrY.push((item.distance/1000).toFixed(2));
+                                    newArrX.push(tempTime);
+                                    return false;
+                                } else {
+                                    cirFlag= false;
+                                }
+                                
+                            })
+                            if(!cirFlag){
+                                newArrY.push(0);
+                                newArrX.push(tempTime);
+                            }
+                            todayTime = (new Date(tempTime).getTime() - 3600 * 1000 * 24);
+                        }
+                        line1.xAxis.data= newArrX.reverse();
+                        line1.series[0].data= newArrY.reverse();
+                        // allData.echart('line1',line1);
+                        $.each(eIArr,function(index,item){
+                            if(item._dom.id=="line1"){
+                                this.setOption(line1);
+                                this.resize();
+                                return false;
+                            }
+                        });
+                    }
+                })
+    }
+    leftCarFun('month');
+    $("#carWeek").click(function(){
+        leftCarFun("week");
+    })
+    $("#carMonth").click(function(){
+         leftCarFun("month");
+    });
+
+    raderFun();
     function raderFun(time) {
         if (time == "day") {
             var dataInfo = {
@@ -923,6 +959,10 @@ window.onload = function() {
             var dataInfo = {
                 "statistic_type": 'month'
             }
+        }else{
+            var dataInfo = {
+                
+            } 
         }
         $.ajax({
             url: 'http://192.168.1.117:8080//jehc-web/oaInspectioncloudStatisticController/getLightBelongDistrictStatistics',
@@ -940,11 +980,10 @@ window.onload = function() {
                 var maxValue = itemValue[0];
                 $.each(itemValue,
                 function(index, item) {
-                    if (itemValue[index + 1] > itemValue[index]) {
-                        maxValue = itemValue[index + 1];
+                    if (itemValue[index] >= maxValue) {
+                        maxValue = itemValue[index];
                     }
                 });
-
                 $.each(itemName,
                 function(index, item) {
                     itemfinal.push({
@@ -960,7 +999,7 @@ window.onload = function() {
             }
         });
     }
-    // raderFun1('day');
+    raderFun1();
     function raderFun1(time) {
         if (time == "day") {
             var dataInfo = {
@@ -974,6 +1013,10 @@ window.onload = function() {
         } else if (time == "month") {
             var dataInfo = {
                 "statistic_type": 'month'
+            }
+        }else{
+            var dataInfo = {
+                
             }
         }
         $.ajax({
@@ -992,11 +1035,10 @@ window.onload = function() {
                 var maxValue = itemValue[0];
                 $.each(itemValue,
                 function(index, item) {
-                    if (itemValue[index + 1] > itemValue[index]) {
-                        maxValue = itemValue[index + 1];
+                    if (itemValue[index] >= maxValue) {
+                        maxValue = itemValue[index];
                     }
                 });
-
                 $.each(itemName,
                 function(index, item) {
                     itemfinal.push({
@@ -1012,7 +1054,6 @@ window.onload = function() {
             }
         });
     }
-
     $("#raderWeek").click(function() {
         raderFun('week');
         raderFun1('week');
@@ -1025,6 +1066,12 @@ window.onload = function() {
         allData.echart('rader', rader);
         allData.echart('rader2', rader2);
     });
+    $("#raderThreeMonth").click(function(){
+        raderFun('raderThreeMonth');
+        raderFun1('raderThreeMonth');
+        allData.echart('rader', rader);
+        allData.echart('rader2', rader2);
+    })
 
     function lineMiddleFun(time) {
         var allDatainner = '';
@@ -1067,8 +1114,6 @@ window.onload = function() {
                     }
                     lineMiddle.xAxis.data = firstArrName.reverse();
                     lineMiddle.series[0].data = finalArrCount.reverse();
-                    console.log(finalArrCount,123465);
-                    console.log(firstArrName,789456);
                     allData.echart('line-middle', lineMiddle);
                 }
             })
@@ -1110,13 +1155,47 @@ window.onload = function() {
                     }
                     lineMiddle.xAxis.data = firstArrName.reverse();
                     lineMiddle.series[0].data = finalArrCount.reverse();
-                    console.log(finalArrCount,123465);
-                    console.log(firstArrName,789456);
                     allData.echart('line-middle', lineMiddle);
                 }
             })
         } else if (time == "threemonth") {
-            // threemonth
+            $.ajax({
+                            url: 'http://192.168.1.117:8080//jehc-web/oaInspectioncloudStatisticController/getLightDayDeclareStatistics',
+                            data: dataInfo,
+                            success: function(data) {
+
+                                allDatainner = JSON.parse(data);
+                                var todayTime = new Date(new Date().toLocaleDateString()).getTime();
+                                var tempTime;
+                                var cirFlag=false;
+
+                                for (var i = 0; i < 90; i++) {
+                                    $.each(allDatainner,
+                                    function(index, item) {
+                                        cirFlag =true;
+                                        tempTime = new Date(todayTime).toLocaleDateString().replace(/\//g, "-");
+                                        if (tempTime == item["name"]) {
+                                            finalArrCount.push(item["light_count"]);
+                                            firstArrName.push(tempTime);
+                                            return false;
+                                        } else {
+                                            cirFlag= false;
+                                        }
+                                        
+                                    })
+                                    if(!cirFlag){
+                                        finalArrCount.push(0);
+                                        firstArrName.push(tempTime);
+                                    }
+                                    todayTime = (new Date(tempTime).getTime() - 3600 * 1000 * 24);
+                                }
+                                lineMiddle.xAxis.data = firstArrName.reverse();
+                                lineMiddle.series[0].data = finalArrCount.reverse();
+                                console.log(finalArrCount,123465);
+                                console.log(firstArrName,789456);
+                                allData.echart('line-middle', lineMiddle);
+                            }
+                        })
         }   
     }
     lineMiddleFun('week');
@@ -1124,9 +1203,288 @@ window.onload = function() {
     $("#lightWeek").click(function(){
         lineMiddleFun('week');
     })
-
     $("#lightMonth").click(function(){
         lineMiddleFun('month');
     })
+    $("#lightThreemonth").click(function(){
+        lineMiddleFun('threemonth');
+    })
+
+    function rightBarFun(time){
+        if(time =="week"){
+            var dataInfo = {
+                statistic_type: 'week'
+            }
+        }else if(time =="month"){
+            var dataInfo = {
+                statistic_type: 'month'
+            }
+        }else if(time =="threemonth"){
+            var dataInfo = {
+                statistic_type: 'threemonth'
+            }
+        }else{
+            var dataInfo = {
+               
+            }
+        }
+         $.ajax({
+                url:'http://192.168.1.117:8080//jehc-web/oaInspectioncloudStatisticController/getLightDeclareStatusStatistics',
+                success:function(data){
+                    var nameArr=[];
+                    var dataArr1=[];
+                    var dataArr2=[];
+                    var dataArr3=[];
+                    $.each(JSON.parse(data),function(index,item){
+                        nameArr.push(item.name);
+                        dataArr1.push(item.light_count);
+                        dataArr2.push(item.leaf_let_count);
+                        dataArr3.push(item.finish_count);
+                    });
+                    rightBar.series[0].data=dataArr1;
+                    rightBar.series[1].data=dataArr2;
+                    rightBar.series[2].data=dataArr3;
+                    allData.echart('rightBar',rightBar);
+                }
+            });
+    }
+    rightBarFun();
+    $("#rightweek").click(function(){
+        rightBarFun('week');
+    })
+    $("#rightmonth").click(function(){
+        rightBarFun('week');
+    })
+    $('#rightthreemonth').click(function(){
+        rightBarFun('threemonth');
+    })
+   
 
 }
+window.addEventListener('DOMContentLoaded',function(){
+    function addMap(lat,lng){
+            var map = new BMap.Map("smallmap");  
+            map.centerAndZoom(new BMap.Point(lat,lng), 20);  
+            map.addControl(new BMap.MapTypeControl({
+                mapTypes:[
+                    BMAP_NORMAL_MAP,
+                    BMAP_HYBRID_MAP
+                ]}));     
+            map.setCurrentCity("广州");        
+            map.enableScrollWheelZoom(true);  
+            var marker = new BMap.Marker(new BMap.Point(lat, lng)); 
+            map.addOverlay(marker); 
+    }
+    function tablepopcarousel(obj){
+        var flag =0;
+        var boxwidth = $(obj).find('.imgCarouselbox').width();
+        console.log(1)
+        $(obj).find('ul').width($(obj).find('li').length*100+"%");
+        $(obj).find('li').width(100/$(obj).find('li').length/3+"%");
+        $(obj).find('li').css({
+            "padding":'5px',
+            "height":'200px'
+        });
+        $(obj).find(".imgCarouselArrow-right").click(function(){
+            console.log($(obj));
+            console.log($(obj).find(".imgCarouselArrow-right"),1111)
+            flag++;
+            if(flag>$(obj).find('li').length/3){
+                flag=0;
+            }
+            console.log($(obj).find('ul'),123);
+            $(obj).find('ul').css({
+                transform:'translateX(-'+flag*boxwidth+'px)',
+                transition:'all 1s'
+            })
+        })
+        $(obj).find('.imgCarouselArrow-left').click(function(){
+            flag--;
+            if(flag<0){
+                flag=Math.floor($(obj).find('li').length/3);
+            }
+            $(obj).find('ul').css({
+                transform:'translateX(-'+flag*boxwidth+'px)',
+                transition:'all 1s'
+            })
+        })
+        $(".closeTablePop").click(function(){
+            $('.poptableMask').hide();
+            $('.poptable').hide();
+        });
+        // $(".poptableMask").click(function(e){
+        //     if(e.target.className=="poptableMask"){
+        //         $('.poptableMask').hide();
+        //         $('.poptable').hide();
+        //     }
+        // });
+        $(".showMap").mouseover(function(){
+            $("#smallmap").show();
+        });
+        $(".showMap").mouseout(function(){
+            $("#smallmap").hide();
+        });
+        $(".controllTab li:first-child").click(function(){
+            $(this).addClass('active');
+            $(".controllTab li:last-child").removeClass('active');
+            $('.applyBox').show();
+            $('.repairBox').css({
+                position:'absolute',
+                opacity:0
+            });
+            $(".declareBox").show();
+            $(".sendReparir").hide();
+        });
+        $(".controllTab li:last-child").click(function(){
+            $(this).addClass('active');
+            $(".controllTab li:first-child").removeClass('active');
+            $('.applyBox').hide();
+            $('.repairBox').css({
+                position:'relative',
+                opacity:1
+            });
+            $(".declareBox").hide();
+            $(".sendReparir").show();
+        });
+            $("#leftTable td").click(function(){
+                $('.poptableMask').show();
+                $('.poptable').show();
+            });
+    }
+    var Today = new Date().toLocaleDateString().replace(/\//g, "-");
+    $('#faultDate').val(Today);
+    let _date={};
+    $('#faultDate').change(function(){
+        _date.date=$(this).val();
+        $("#leftTable tbody").empty();
+        lightBug();
+    });
+    function lightBug(){
+        $.ajax({
+            url:'http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getDeclareReportListByDate',
+            data:_date,
+            success:function(data){
+                var leftTable = JSON.parse(data);
+                if(leftTable.length<1){
+                    $('.lefttablebox h2').show();
+                    return false;
+                }
+                $('.lefttablebox h2').hide();
+                $.each(leftTable,function(index,item){
+                    if(item.status==1){
+                       item.status1='已申报'; 
+                    }else if(item.status==2){
+                        item.status1="已派单";
+                    }else if(item.status){
+                        item.status1="已维修";
+                    }
+                    $("#leftTable tbody").append('<tr data-id="'+item.id+'" data-status="'+item.status+'"><td title="'+item.declare_time.slice(0,-2)+'"><span>'+item.declare_time.slice(0,-2)+'</span></td><td title="'+item.status1+'"><span>'+item.status1+'</span></td><td title="'+item.fault_type+'"><span>'+item.fault_type+'</span></td><td title="'+item.location+'"><span>'+item.location+'</span></td></tr>');
+                });
+                $.each($('#leftTable tr'),function(index,item){
+                    $(this).click(function(){
+                        var typeObj = {
+                            id:$(this).attr('data-id'),
+                            status:$(this).attr('data-status')
+                        };
+                        $.ajax({
+                            url:'http://192.168.1.117:8080/jehc-web/oaInspectioncloudStatisticController/getDeclareReportDetailById',
+                            data:typeObj,
+                            success:function(data){
+                                var dataRes = JSON.parse(data);
+                                $(".de-status").html("状态：已申报");
+                                $(".de-time").html("申报时间："+dataRes.declare_time);
+                                if(dataRes.location_note==""){
+                                    $(".de-location").html("地点："+dataRes.location+"<a href='javascript:;'>点击查看地图</a>");
+                                }else{
+                                    $(".de-location").html("地点："+dataRes.location+'('+dataRes.location_note+')'+"<a href='javascript:;'>点击查看地图</a>");
+                                }
+                                $(".de-type").html("故障类型："+dataRes.fault_type);
+                                $(".de-light").html("灯号:"+dataRes.light_number+"灯号");
+                                    addMap(Number(dataRes.longitude),Number(dataRes.latitude));
+                                $(".de-location a").click(function(){
+                                    $("#smallmap").toggle();
+                                });
+                                if(dataRes.declare_description==""){
+                                    $('.de-descript').html("申报描述：无");
+                                }else{
+                                    $('.de-descript').html("申报描述："+dataRes.declare_description);
+                                }
+                                
+                                if(dataRes.status==1){
+                                    $(".controllTab li:last-child").hide();
+                                    $(".sendReparir").hide();
+                                    $(".declareBox").show();
+                                }else if(dataRes.status==2){
+                                    $(".controllTab li:first-child").removeClass('active');
+                                    $(".controllTab li:last-child").addClass('active');
+                                    $(".controllTab li:last-child").show();
+                                    $(".re-status").html("状态：已派单");
+                                    $('.re-appoint').html("派单时间："+dataRes.appoint_time);
+                                    $(".re-barrier").html("维修人："+dataRes.barrier_name);
+                                    if(dataRes.declare_description==""){
+                                        $(".re-desc").html("派单描述：无");
+                                    }else{
+                                        $(".re-desc").html("派单描述："+dataRes.declare_description);
+                                    }
+                                    
+                                    $('.re-time').html("派单时间："+dataRes.declare_time);
+                                    $(".declareBox").hide();
+                                    $(".sendReparir").show();
+                                    $(".repairBox").hide();
+                                }else if(dataRes.status==3){
+                                    $(".controllTab li:first-child").removeClass('active');
+                                    $(".controllTab li:last-child").addClass('active');
+                                    $(".controllTab li:last-child").show();
+                                    $(".re-status").html("状态：已维修");
+                                    $('.re-appoint').html("派单时间"+dataRes.appoint_time);
+                                    $(".re-barrier").html("维修人："+dataRes.barrier_name);
+                                    if(dataRes.declare_description==""){
+                                        $(".re-desc").html("派单描述：无");
+                                    }else{
+                                        $(".re-desc").html("派单描述："+dataRes.declare_description);
+                                    }
+                                    
+                                    $('.re-time').html("派单时间："+dataRes.declare_time);
+                                    $(".declareBox").hide();
+                                    $(".sendReparir").show();
+                                    $(".repairBox").show();
+                                }
+                                
+                                $(".applyBox ul").html("");
+                                $(".repairBox ul").html("");
+                                $.each(dataRes.declare_photo,function(index,item){
+                                    $(".applyBox ul").append('<li><img src="http://192.168.1.117:8080'+item+'"></li>');
+                                });
+                                $.each(dataRes.repair_photo,function(index,item){
+                                    $(".repairBox ul").append('<li><img src="http://192.168.1.117:8080'+item+'"></li>');
+                                });
+
+                                tablepopcarousel('.applyBox');
+                                tablepopcarousel('.repairBox');
+
+                                $.each($('.imgCarouselbox li'),function(index,item){
+                                    $(item).click(function(){
+                                        var imgSrc = $(this).find('img').attr('src');
+                                        $(".bigPic").show();
+                                        $(".bigPic img").remove();
+                                        $(".bigPic").append("<img src='"+imgSrc+"''>");
+                                        $(".bigPic img").css({
+                                            "max-height":'80vh'
+                                        });
+                                        $('.poptableMask').show();
+                                        $(".bigPic h2").click(function(){
+                                            $(".bigPic").hide();
+                                            // $(".poptableMask").hide();
+                                        });
+                                    });
+                                });
+                                
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    }
+    lightBug();
+})
